@@ -1,0 +1,3 @@
+[submodule "/home/ocean/.config/mpv/scripts/videoclip"]
+	path = /home/ocean/.config/mpv/scripts/videoclip
+	url = https://github.com/Ajatt-Tools/videoclip.git
