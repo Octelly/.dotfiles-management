@@ -13,3 +13,10 @@
 [submodule "/home/ocean/.config/mpv/scripts/reload"]
 	path = /home/ocean/.config/mpv/scripts/reload
 	url = git@github.com:4e6/mpv-reload.git
+[submodule "/home/ocean/.config/awesome/nice"]
+	path = /home/ocean/.config/awesome/nice
+	url = git@github.com:mut-ex/awesome-wm-nice.git
+	branch = awesome-4v3-stable
+[submodule "/home/ocean/.config/awesome/keyboard_layout"]
+	path = /home/ocean/.config/awesome/keyboard_layout
+	url = git@github.com:echuraev/keyboard_layout.git
