@@ -1,3 +1,15 @@
 [submodule "/home/ocean/.config/mpv/scripts/videoclip"]
 	path = /home/ocean/.config/mpv/scripts/videoclip
 	url = https://github.com/Ajatt-Tools/videoclip.git
+[submodule "/home/ocean/.config/mpv/scripts/quack"]
+	path = /home/ocean/.config/mpv/scripts/quack
+	url = git@github.com:CounterPillow/mpv-quack.git
+[submodule "/home/ocean/.config/mpv/scripts/autosubsync"]
+	path = /home/ocean/.config/mpv/scripts/autosubsync
+	url = git@github.com:joaquintorres/autosubsync-mpv.git
+[submodule "/home/ocean/.config/mpv/scripts/autosub"]
+	path = /home/ocean/.config/mpv/scripts/autosub
+	url = git@github.com:davidde/mpv-autosub.git
+[submodule "/home/ocean/.config/mpv/scripts/reload"]
+	path = /home/ocean/.config/mpv/scripts/reload
+	url = git@github.com:4e6/mpv-reload.git
