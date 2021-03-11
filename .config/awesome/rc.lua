@@ -1,37 +1,47 @@
--- If LuaRocks is installed, make sure that packages installed through it are
--- found (e.g. lgi). If LuaRocks is not installed, do nothing.
+-- LuaRocks packages loading if available
 pcall(require, "luarocks.loader")
 
--- Standard awesome library
-local gears = require("gears")
-local awful = require("awful")
-require("awful.autofocus")
--- Widget and layout library
-local wibox = require("wibox")
--- Theme handling library
-local beautiful = require("beautiful")
--- Notification library
-local naughty = require("naughty")
-local menubar = require("menubar")
-local hotkeys_popup = require("awful.hotkeys_popup")
--- Enable hotkeys help widget for VIM and other apps
--- when client with a matching name is opened:
-require("awful.hotkeys_popup.keys")
 
--- Load Debian menu entries
+-- STANDARD AWESOME LIBRARY --
+
+local gears = require("gears")                        -- utilities
+local awful = require("awful")                        -- window management
+local wibox = require("wibox")                        -- widgets
+local beautiful = require("beautiful")                -- themes
+local naughty = require("naughty")                    -- notifications
+local menubar = require("menubar")                    -- XDG (application) menu implementation - FIXME: probably useless
+local hotkeys_popup = require("awful.hotkeys_popup")  -- hotkeys cheatsheet
+
+require("awful.hotkeys_popup.keys")  -- dynamic hotkeys cheatsheet library
+                                     -- (might not be relevant to custom config)
+                                     -- (firefox, qutebrowser, termite, tmux, vim)
+
+-- Load Debian menu entries - FIXME: probably useless (also not cross-distro compatible)
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
--- {{{ Error handling
--- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
+-- ADDONS --
+
+local nice = require("nice")  -- Repo: https://github.com/mut-ex/awesome-wm-nice
+                              -- An Awesome WM module that add MacOS-like
+                              -- window decorations, with seamless titlebars,
+                              -- double click to maximize, and window shade
+                              -- feature
+
+local keyboard_layout = require("keyboard_layout")  -- Repo: https://github.com/echuraev/keyboard_layout
+                                                    -- Keyboard switcher for Awesome WM with additional
+                                                    -- layouts
+
+-- ERROR HANDLING --
+
+-- this should only execute for fallback config (useless here?)
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
                      title = "Oops, there were errors during startup!",
                      text = awesome.startup_errors })
 end
 
--- Handle runtime errors after startup
+-- runtime errors
 do
     local in_error = false
     awesome.connect_signal("debug::error", function (err)
@@ -45,13 +55,14 @@ do
         in_error = false
     end)
 end
--- }}}
 
--- {{{ Variable definitions
--- Themes define colours, icons, font and wallpapers.
+-- VARIABLES --
+
+-- load theme
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
-local nice = require("nice")
+
+-- initialise nice addon
 nice {
     titlebar_items = {
         left = {},
@@ -60,7 +71,8 @@ nice {
     }
 }
 
-local keyboard_layout = require("keyboard_layout")
+
+-- keyboard layouts
 local kbdcfg = keyboard_layout.kbdcfg({type = "tui"})
 
 kbdcfg.add_primary_layout("English (US)", "EN", "us")
@@ -68,10 +80,12 @@ kbdcfg.add_primary_layout("Czech (QWERTY)", "CZ", "cz(qwerty)")
 
 kbdcfg.bind()
 
+
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
+
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -79,6 +93,7 @@ editor_cmd = terminal .. " -e " .. editor
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
+
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -99,10 +114,11 @@ awful.layout.layouts = {
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
 }
--- }}}
 
--- {{{ Menu
--- Create a launcher widget and a main menu
+beautiful.useless_gap = 5
+
+-- MENU --
+
 myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
    { "manual", terminal .. " -e man awesome" },
@@ -113,6 +129,7 @@ myawesomemenu = {
 
 local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
 local menu_terminal = { "open terminal", terminal }
+
 
 if has_fdo then
     mymainmenu = freedesktop.menu.build({
@@ -137,10 +154,9 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
--- Keyboard map indicator and switcher
--- mykeyboardlayout = awful.widget.keyboardlayout()
 
--- {{{ Wibar
+-- WIBAR (WIDGET BAR) --
+
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
@@ -252,17 +268,17 @@ awful.screen.connect_for_each_screen(function(s)
         },
     }
 end)
--- }}}
 
--- {{{ Mouse bindings
+
+-- MOUSE BINDINGS --
 root.buttons(gears.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewprev),
-    awful.button({ }, 5, awful.tag.viewnext)
+    awful.button({ }, 4, awful.tag.viewprev),  -- prev and next have been changed to
+    awful.button({ }, 5, awful.tag.viewnext)   -- the more common configuration
 ))
--- }}}
 
--- {{{ Key bindings
+
+-- KEY BINDINGS --
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
@@ -366,6 +382,8 @@ globalkeys = gears.table.join(
               {description = "show the menubar", group = "launcher"})
 )
 
+
+-- A client keybinding is a shortcut that will get the currently focused client as its first callback argument.
 clientkeys = gears.table.join(
     awful.key({ modkey,           }, "f",
         function (c)
@@ -460,6 +478,7 @@ for i = 1, 9 do
     )
 end
 
+
 clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c)
         c:emit_signal("request::activate", "mouse_click", {raise = true})
@@ -476,9 +495,9 @@ clientbuttons = gears.table.join(
 
 -- Set keys
 root.keys(globalkeys)
--- }}}
 
--- {{{ Rules
+
+-- RULES --
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
     -- All clients will match this rule.
@@ -534,9 +553,9 @@ awful.rules.rules = {
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
 }
--- }}}
 
--- {{{ Signals
+
+-- SIGNALS --
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
@@ -598,12 +617,14 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
--- }}}
 
--- Autorun programs
+
+-- AUTORUN --
 local run_on_start_up = {
    "picom --experimental-backends --config " .. gears.filesystem.get_configuration_dir() .. "/picom/picom.conf",
    "/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1",
+   --"plank"
+   -- "nitrogen --random --set-zoom-fill ~/Wallpapers/32-9-sonokai"
 }
 
 -- Run all the apps listed in run_on_start_up
@@ -616,5 +637,3 @@ for _, app in ipairs(run_on_start_up) do
    -- pipe commands to bash to allow command to be shell agnostic
    awful.spawn.with_shell(string.format("echo 'pgrep -u $USER -x %s > /dev/null || (%s)' | bash -", findme, app), false)
 end
-
-beautiful.useless_gap = 5
