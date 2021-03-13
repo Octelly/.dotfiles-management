@@ -20,6 +20,7 @@ require("awful.hotkeys_popup.keys")  -- dynamic hotkeys cheatsheet library
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
+
 -- ADDONS --
 
 local nice = require("nice")  -- Repo: https://github.com/mut-ex/awesome-wm-nice
@@ -32,6 +33,7 @@ local keyboard_layout = require("keyboard_layout")  -- Repo: https://github.com/
                                                     -- Keyboard switcher for Awesome WM with additional
                                                     -- layouts
 
+                                                    
 -- ERROR HANDLING --
 
 -- this should only execute for fallback config (useless here?)
@@ -68,7 +70,10 @@ nice {
         left = {},
         middle = "title",
         right = {"minimize", "maximize", "close"},
-    }
+    },
+    --titlebar_height = 38,
+    no_titlebar_maximized = true,
+    tooltips_enabled = false
 }
 
 
@@ -271,17 +276,49 @@ end)
 
 
 -- MOUSE BINDINGS --
+
+-- root window
 root.buttons(gears.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewprev),  -- prev and next have been changed to
-    awful.button({ }, 5, awful.tag.viewnext)   -- the more common configuration
+
+    -- change tag
+    -- -> modkey + scroll
+    awful.button({ modkey }, 4, awful.tag.viewprev),
+    awful.button({ modkey }, 5, awful.tag.viewnext)
 ))
+
+-- client window
+clientbuttons = gears.table.join(
+    awful.button({ }, 1, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+    end),
+    awful.button({ modkey }, 1, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+        awful.mouse.client.move(c)
+    end),
+    awful.button({ modkey }, 3, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+        awful.mouse.client.resize(c)
+    end),
+
+    -- change tag
+    -- -> modkey + scroll
+    awful.button({ modkey }, 4, function (c)
+        awful.tag.viewprev(awful.mouse.screen)
+    end),
+    awful.button({ modkey }, 5, function (c)
+        awful.tag.viewnext(awful.mouse.screen)
+    end)
+)
 
 
 -- KEY BINDINGS --
 globalkeys = gears.table.join(
+
+    -- hotkeys cheatsheet
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
+    
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
@@ -477,21 +514,6 @@ for i = 1, 9 do
                   {description = "toggle focused client on tag #" .. i, group = "tag"})
     )
 end
-
-
-clientbuttons = gears.table.join(
-    awful.button({ }, 1, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
-    end),
-    awful.button({ modkey }, 1, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
-        awful.mouse.client.move(c)
-    end),
-    awful.button({ modkey }, 3, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
-        awful.mouse.client.resize(c)
-    end)
-)
 
 -- Set keys
 root.keys(globalkeys)
