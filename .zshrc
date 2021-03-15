@@ -173,7 +173,8 @@ if ! zgen saved; then
     zgen load zsh-users/zsh-autosuggestions
 
     # theme
-    zgen load romkatv/powerlevel10k powerlevel10k
+    #zgen load romkatv/powerlevel10k powerlevel10k
+    zgen load ~/my.zsh-theme
 
     # save all to init script
     zgen save
@@ -183,6 +184,7 @@ fi
 ## Powerlevel10K config
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+#[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-task limit:3 next
+#task limit:3 next  # I hate seeing all the past due tasks,
+                    # so I'm commenting this out
