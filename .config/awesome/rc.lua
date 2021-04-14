@@ -552,12 +552,18 @@ awful.rules.rules = {
 
     -- Remove titlebars from windows with GTK titlebars
     { rule_any = {
-	    instance = {
-		    "org.gnome.Nautilus",
-		    "gedit",
-		    "lollypop"
+	    requests_no_titlebar = {
+		    true
 	    }
       }, properties = { titlebars_enabled = false }
+    },
+ 
+    -- Don't make extension windows floating
+    { rule_any = {
+	    class = {
+		    "Brave-browser"
+	    }
+      }, properties = { floating = false }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
