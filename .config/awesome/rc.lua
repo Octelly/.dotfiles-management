@@ -550,7 +550,7 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = true }
     },
 
-    -- Remove titlebars from windows with GTK titlebars
+    -- Remove titlebars from windows that have their own ttitlebars
     { rule_any = {
 	    requests_no_titlebar = {
 		    true
