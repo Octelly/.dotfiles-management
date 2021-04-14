@@ -17,8 +17,8 @@ require("awful.hotkeys_popup.keys")  -- dynamic hotkeys cheatsheet library
                                      -- (firefox, qutebrowser, termite, tmux, vim)
 
 -- Load Debian menu entries - FIXME: probably useless (also not cross-distro compatible)
-local debian = require("debian.menu")
-local has_fdo, freedesktop = pcall(require, "freedesktop")
+--local debian = require("debian.menu")
+--local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 
 -- ADDONS --
@@ -73,7 +73,12 @@ nice {
     },
     --titlebar_height = 38,
     no_titlebar_maximized = true,
-    tooltips_enabled = false
+    tooltips_enabled = false,
+    button_margin_horizontal = 7,
+    button_size = 14,
+    minimize_color = "#f1fa8c",
+    maximize_color = "#50fa7b",
+    close_color =    "#ff5555",
 }
 
 
@@ -87,7 +92,8 @@ kbdcfg.bind()
 
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
+--terminal = "x-terminal-emulator"
+terminal = "kitty"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -145,7 +151,7 @@ else
     mymainmenu = awful.menu({
         items = {
                   menu_awesome,
-                  { "Debian", debian.menu.Debian_menu.Debian },
+                  --{ "Debian", debian.menu.Debian_menu.Debian },
                   menu_terminal,
                 }
     })
@@ -544,6 +550,16 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = true }
     },
 
+    -- Remove titlebars from windows with GTK titlebars
+    { rule_any = {
+	    instance = {
+		    "org.gnome.Nautilus",
+		    "gedit",
+		    "lollypop"
+	    }
+      }, properties = { titlebars_enabled = false }
+    },
+
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
@@ -617,7 +633,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- AUTORUN --
 local run_on_start_up = {
    "picom --experimental-backends --config " .. gears.filesystem.get_configuration_dir() .. "/picom/picom.conf",
-   "/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1",
+   "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
    --"plank"
    -- "nitrogen --random --set-zoom-fill ~/Wallpapers/32-9-sonokai"
 }

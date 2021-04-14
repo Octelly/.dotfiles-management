@@ -1,22 +1,22 @@
-[submodule "/home/ocean/.config/mpv/scripts/videoclip"]
-	path = /home/ocean/.config/mpv/scripts/videoclip
+[submodule ".config/mpv/scripts/videoclip"]
+	path = .config/mpv/scripts/videoclip
 	url = https://github.com/Ajatt-Tools/videoclip.git
-[submodule "/home/ocean/.config/mpv/scripts/quack"]
-	path = /home/ocean/.config/mpv/scripts/quack
+[submodule ".config/mpv/scripts/quack"]
+	path = .config/mpv/scripts/quack
 	url = git@github.com:CounterPillow/mpv-quack.git
-[submodule "/home/ocean/.config/mpv/scripts/autosubsync"]
-	path = /home/ocean/.config/mpv/scripts/autosubsync
+[submodule ".config/mpv/scripts/autosubsync"]
+	path = .config/mpv/scripts/autosubsync
 	url = git@github.com:joaquintorres/autosubsync-mpv.git
-[submodule "/home/ocean/.config/mpv/scripts/autosub"]
-	path = /home/ocean/.config/mpv/scripts/autosub
+[submodule ".config/mpv/scripts/autosub"]
+	path = .config/mpv/scripts/autosub
 	url = git@github.com:davidde/mpv-autosub.git
-[submodule "/home/ocean/.config/mpv/scripts/reload"]
-	path = /home/ocean/.config/mpv/scripts/reload
+[submodule ".config/mpv/scripts/reload"]
+	path = .config/mpv/scripts/reload
 	url = git@github.com:4e6/mpv-reload.git
-[submodule "/home/ocean/.config/awesome/nice"]
-	path = /home/ocean/.config/awesome/nice
+[submodule ".config/awesome/nice"]
+	path = .config/awesome/nice
 	url = git@github.com:mut-ex/awesome-wm-nice.git
 	branch = awesome-4v3-stable
-[submodule "/home/ocean/.config/awesome/keyboard_layout"]
-	path = /home/ocean/.config/awesome/keyboard_layout
+[submodule ".config/awesome/keyboard_layout"]
+	path = .config/awesome/keyboard_layout
 	url = git@github.com:echuraev/keyboard_layout.git

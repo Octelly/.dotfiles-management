@@ -11,6 +11,7 @@ export PATH=${DEVKITPRO}/tools/bin:$PATH
 
 
 
+
 export EDITOR=/usr/bin/vim
 export editor=/usr/bin/vim
 
