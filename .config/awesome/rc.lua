@@ -63,6 +63,16 @@ end
 -- load theme
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
+local bling = require("bling")
+
+bling.widget.tag_preview.enable {
+    show_client_content = false,  -- Whether or not to show the client content
+    x = 10,                       -- The x-coord of the popup
+    y = 10,                       -- The y-coord of the popup
+    scale = 0.25,                 -- The scale of the previews compared to the screen
+    honor_padding = false,        -- Honor padding when creating widget size
+    honor_workarea = false        -- Honor work area when creating widget size
+}   
 
 -- initialise nice addon
 nice {
@@ -73,6 +83,8 @@ nice {
     },
     --titlebar_height = 38,
     no_titlebar_maximized = true,
+    titlebar_height = 42,
+    titlebar_padding_right = 7,
     tooltips_enabled = false,
     button_margin_horizontal = 7,
     button_size = 14,
@@ -243,6 +255,7 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+                           
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
         screen  = s,
@@ -554,6 +567,9 @@ awful.rules.rules = {
     { rule_any = {
 	    requests_no_titlebar = {
 		    true
+	    },
+	    class = {
+		    "feh"
 	    }
       }, properties = { titlebars_enabled = false }
     },

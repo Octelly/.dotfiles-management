@@ -12,8 +12,8 @@ export PATH=${DEVKITPRO}/tools/bin:$PATH
 
 
 
-export EDITOR=/usr/bin/vim
-export editor=/usr/bin/vim
+export EDITOR=/usr/bin/nvim
+export editor=/usr/bin/nvim
 
 ## Custom functions and aliases
 
@@ -37,6 +37,7 @@ alias yta='ytdl -f "bestaudio"'
 alias ffmpeg='ffmpeg -hide_banner'
 alias sha256='shasum -a 256'
 alias wine32='WINEPREFIX=~/.wine32 wine'
+alias timestamp='date +%s'
 
 alias ssh='kitty kitten ssh'
 
