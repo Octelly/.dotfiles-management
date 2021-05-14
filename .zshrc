@@ -37,6 +37,8 @@ alias yta='ytdl -f "bestaudio"'
 alias ffmpeg='ffmpeg -hide_banner'
 alias sha256='shasum -a 256'
 alias wine32='WINEPREFIX=~/.wine32 wine'
+alias winejp='WINEPREFIX=~/.wineJP LC_ALL="ja_JP" LANG=ja-JP.utf8 wine'
+alias winetricksjp='WINEPREFIX=~/.wineJP LC_ALL="ja_JP" LANG=ja_JP.UTF-8 winetricks'
 alias timestamp='date +%s'
 
 alias ssh='kitty kitten ssh'
@@ -190,3 +192,6 @@ fi
 
 #task limit:3 next  # I hate seeing all the past due tasks,
                     # so I'm commenting this out
+
+# Created by `pipx` on 2021-04-19 19:36:28
+export PATH="$PATH:/home/ocean/.local/bin"

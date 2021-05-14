@@ -446,6 +446,13 @@ clientkeys = gears.table.join(
     awful.key({ modkey,           }, "d",
         function (c)
             c.fullscreen = not c.fullscreen
+	    --local cur_tag = client.focus and client.focus.first_tag or nil
+            --for _, cls in ipairs(cur_tag:clients()) do
+            --    -- minimize all windows except the focused one
+            --    if c.window ~= cls.window then
+            --        cls.hidden = not cls.hidden
+            --    end
+            --end
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
@@ -656,6 +663,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 local run_on_start_up = {
    "picom --experimental-backends --config " .. gears.filesystem.get_configuration_dir() .. "/picom/picom.conf",
    "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
+   "/home/ocean/.screenlayout/three.sh",
    --"plank"
    -- "nitrogen --random --set-zoom-fill ~/Wallpapers/32-9-sonokai"
 }
