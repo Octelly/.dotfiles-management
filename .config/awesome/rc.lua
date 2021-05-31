@@ -414,7 +414,21 @@ globalkeys = gears.table.join(
                     )
                   end
               end,
-              {description = "restore minimized", group = "client"})
+              {description = "restore minimized", group = "client"}),
+
+    -- media keys
+    awful.key({ }, "XF86AudioPlay", function () awful.util.spawn("playerctl play-pause") end,
+              {description = "toggle media playback", group = "mpris media"}),
+    awful.key({ }, "XF86AudioPause", function () awful.util.spawn("playerctl play-pause") end,
+              {description = "toggle media playback", group = "mpris media"}),
+    awful.key({ }, "XF86AudioNext", function () awful.util.spawn("playerctl next") end,
+              {description = "next media", group = "mpris media"}),
+    awful.key({ }, "XF86AudioPrev", function () awful.util.spawn("playerctl previous") end,
+              {description = "previous media", group = "mpris media"}),
+    awful.key({ }, "XF86AudioForward", function () awful.util.spawn("playerctl position 1+") end,
+              {description = "forward media", group = "mpris media"}),
+    awful.key({ }, "XF86AudioRewind", function () awful.util.spawn("playerctl position 1-") end,
+              {description = "rewind media", group = "mpris media"})
 )
 
 
