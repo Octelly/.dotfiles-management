@@ -147,7 +147,7 @@ myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end },
+   { "quit 👋❤️", function() awesome.quit() end },
 }
 
 local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
@@ -601,6 +601,14 @@ awful.rules.rules = {
 		    "Brave-browser"
 	    }
       }, properties = { floating = false }
+    },
+
+    -- Fix Sonic Generations
+    { rule_any = {
+	    class = {
+		    "steam_app_71340"
+	    }
+      }, properties = { fullscreen = true }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.

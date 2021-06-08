@@ -195,3 +195,4 @@ fi
 
 # Created by `pipx` on 2021-04-19 19:36:28
 export PATH="$PATH:/home/ocean/.local/bin"
+compaudit && compinit
