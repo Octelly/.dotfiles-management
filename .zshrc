@@ -19,7 +19,7 @@ export editor=/usr/bin/nvim
 
 # this is a dumb fix for a problem that shouldn't exist in the first place
 # - it checks if "code" is in path and if it's not, applies an alias
-if ! which code > /dev/null ; then alias code="/usr/share/code/code"; fi
+#if ! which code > /dev/null ; then alias code="/usr/share/code/code"; fi
 
 # TEMPORARY
 alias dw="ytdl-safe -f \"bestaudio/best\" -x --audio-format \"flac\""
