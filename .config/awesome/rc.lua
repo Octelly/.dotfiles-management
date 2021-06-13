@@ -297,44 +297,10 @@ end)
 -- MOUSE BINDINGS --
 
 -- root window
-root.buttons(gears.table.join(
-    -- show main menu
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-
-    -- change tag
-    -- -> modkey + scroll
-    awful.button({ modkey }, 4, awful.tag.viewprev),
-    awful.button({ modkey }, 5, awful.tag.viewnext)
-))
+root.buttons(require("binds.globalbuttons")())
 
 -- client window
-clientbuttons = gears.table.join(
-
-    -- focus
-    awful.button({ }, 1, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
-    end),
-
-    -- move, resize
-    awful.button({ modkey }, 1, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
-        awful.mouse.client.move(c)
-    end),
-    awful.button({ modkey }, 3, function (c)
-        c:emit_signal("request::activate", "mouse_click", {raise = true})
-        awful.mouse.client.resize(c)
-    end),
-
-    -- change tag
-    -- -> modkey + scroll
-    awful.button({ modkey }, 4, function (c)
-        awful.tag.viewprev(awful.mouse.screen)
-    end),
-    awful.button({ modkey }, 5, function (c)
-        awful.tag.viewnext(awful.mouse.screen)
-    end)
-)
-
+--clientbuttons = require('binds.clientbuttons')()
 
 -- KEY BINDINGS --
 globalkeys = gears.table.join(
@@ -534,87 +500,10 @@ root.keys(globalkeys)
 
 -- RULES --
 -- Rules to apply to new clients (through the "manage" signal).
-awful.rules.rules = {
-    -- All clients will match this rule.
-    { rule = { },
-      properties = { border_width = 0,
-                     border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
-                     raise = true,
-                     keys = clientkeys,
-                     buttons = clientbuttons,
-                     screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
-     }
-    },
-
-    -- Floating clients.
-    { rule_any = {
-        instance = {
-          "DTA",  -- Firefox addon DownThemAll.
-          "copyq",  -- Includes session name in class.
-          "pinentry",
-        },
-        class = {
-          "Arandr",
-          "Blueman-manager",
-          "Gpick",
-          "Kruler",
-          "MessageWin",  -- kalarm.
-          "Sxiv",
-          "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
-          "Wpa_gui",
-          "veromix",
-          "xtightvncviewer"},
-
-        -- Note that the name property shown in xprop might be set slightly after creation of the client
-        -- and the name shown there might not match defined rules here.
-        name = {
-          "Event Tester",  -- xev.
-        },
-        role = {
-          "AlarmWindow",  -- Thunderbird's calendar.
-          "ConfigManager",  -- Thunderbird's about:config.
-          "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
-        }
-      }, properties = { floating = true }},
-
-    -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
-    },
-
-    -- Remove titlebars from windows that have their own ttitlebars
-    { rule_any = {
-	    requests_no_titlebar = {
-		    true
-	    },
-	    class = {
-		    "feh"
-	    }
-      }, properties = { titlebars_enabled = false }
-    },
- 
-    -- Don't make extension windows floating
-    { rule_any = {
-	    class = {
-		    "Brave-browser"
-	    }
-      }, properties = { floating = false }
-    },
-
-    -- Fix Sonic Generations
-    { rule_any = {
-	    class = {
-		    "steam_app_71340"
-	    }
-      }, properties = { fullscreen = true }
-    },
-
-    -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
-}
+awful.rules.rules = require('main.rules')(
+    clientkeys,
+    require('binds.clientbuttons')()
+)
 
 
 -- SIGNALS --
