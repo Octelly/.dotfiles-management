@@ -347,7 +347,9 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey },            "r",     function () awful.util.spawn_with_shell("rofi -config " .. gears.filesystem.get_configuration_dir() .. "/rofi/config.rasi -switchers combi,drun,calc -show combi") end,
-              {description = "Rofi - drun", group = "launcher"}),
+              {description = "Rofi", group = "launcher"}),
+    awful.key({ modkey },            "f",     function () awful.util.spawn_with_shell("nautilus") end,
+              {description = "open a file manager", group = "launcher"}),
     awful.key({ "Control", "Shift" },            "Print",     function () awful.util.spawn_with_shell("maim -s | xclip -selection clipboard -t image/png") end,
               {description = "selection screenshot", group = "launcher"}),
     
