@@ -9,6 +9,14 @@ export DEVKITPPC=${DEVKITPRO}/devkitPPC
 export PATH=${DEVKITPRO}/tools/bin:$PATH
 
 
+export PATH=$HOME/.emacs.d/bin:$PATH
+
+
+
+CASE_SENSITIVE="false"
+HYPHEN_INSENSITIVE="false"
+DISABLE_AUTO_UPDATE="false"
+DISABLE_UPDATE_PROMPT="true"
 
 
 
@@ -17,11 +25,6 @@ export editor=/usr/bin/nvim
 
 ## Custom functions and aliases
 
-# this is a dumb fix for a problem that shouldn't exist in the first place
-# - it checks if "code" is in path and if it's not, applies an alias
-#if ! which code > /dev/null ; then alias code="/usr/share/code/code"; fi
-
-# TEMPORARY
 alias dw="ytdl-safe -f \"bestaudio/best\" -x --audio-format \"flac\""
 alias dww="ytdl-safe --sleep-interval 60 -f \"bestaudio/best\" -x --audio-format \"flac\""
 
@@ -36,9 +39,13 @@ alias ytv='ytdl -f "bestvideo[fps>=60]+bestaudio/bestvideo+bestaudio"'
 alias yta='ytdl -f "bestaudio"'
 alias ffmpeg='ffmpeg -hide_banner'
 alias sha256='shasum -a 256'
-alias wine32='WINEPREFIX=~/.wine32 wine'
+
+alias wine32='WINEPREFIX=~/.wine32 WINEARCH=win32 wine'
+alias wineboot32='WINEPREFIX=~/.wine32 WINEARCH=win32 wineboot'
+alias winetricks32='WINEPREFIX=~/.wine32 WINEARCH=win32 winetricks'
 alias winejp='WINEPREFIX=~/.wineJP LC_ALL="ja_JP" LANG=ja-JP.utf8 wine'
 alias winetricksjp='WINEPREFIX=~/.wineJP LC_ALL="ja_JP" LANG=ja_JP.UTF-8 winetricks'
+
 alias timestamp='date +%s'
 
 alias ssh='kitty kitten ssh'
@@ -51,6 +58,8 @@ alias please='sudo'
 alias clr='clear'
 alias cls='clear'
 alias cl='clear'
+
+alias cht='cht.sh'
 
 alias myip='curl ipinfo.io/ip'
 
@@ -71,6 +80,11 @@ function zff () {
 	nautilus $(z -e $*) &
 	disown
 	exit  # works on gnome-terminal, doesn't work on kitty
+}
+
+function lnmv () {
+	mv $1 $2
+	ln -s $2 $1
 }
 
 function calc () {
@@ -163,7 +177,7 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/git
     zgen oh-my-zsh plugins/sudo
     zgen oh-my-zsh plugins/command-not-found
-    zgen oh-my-zsh plugins/z
+    # zgen oh-my-zsh plugins/z  # replacing with zoxide
     zgen oh-my-zsh plugins/web-search
 
     # plugins
@@ -175,6 +189,7 @@ if ! zgen saved; then
     # completions
     zgen load zsh-users/zsh-completions src
     zgen load zsh-users/zsh-autosuggestions
+    #zgen load marlonrichert/zsh-autocomplete . main  # LAGGY!
 
     # theme
     #zgen load romkatv/powerlevel10k powerlevel10k
@@ -196,3 +211,5 @@ fi
 # Created by `pipx` on 2021-04-19 19:36:28
 export PATH="$PATH:/home/ocean/.local/bin"
 compaudit && compinit
+
+eval "$(zoxide init zsh)"

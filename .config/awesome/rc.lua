@@ -181,7 +181,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- WIBAR (WIDGET BAR) --
 
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock("%H:%M:%S|%A %d.%m.|%b %Y", 1)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -346,8 +346,10 @@ globalkeys = gears.table.join(
     -- program shortcuts
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey },            "r",     function () awful.util.spawn_with_shell("rofi -config " .. gears.filesystem.get_configuration_dir() .. "/rofi/config.rasi -switchers combi,drun,calc -show combi") end,
+    awful.key({ modkey },            "r",     function () awful.util.spawn_with_shell("rofi -no-default-config -config " .. gears.filesystem.get_configuration_dir() .. "/rofi/config.rasi -switchers combi,drun,calc -show combi") end,
               {description = "Rofi", group = "launcher"}),
+    awful.key({ modkey },            "l",     function () awful.util.spawn_with_shell("i3lock -i ~/Documents/sesks.png -t") end,
+              {description = "lock", group = "awesome"}),
     awful.key({ modkey },            "f",     function () awful.util.spawn_with_shell("nautilus") end,
               {description = "open a file manager", group = "launcher"}),
     awful.key({ "Control", "Shift" },            "Print",     function () awful.util.spawn_with_shell("maim -s | xclip -selection clipboard -t image/png") end,

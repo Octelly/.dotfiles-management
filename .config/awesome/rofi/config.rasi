@@ -1,6 +1,8 @@
 configuration {
-	modi: "window,drun,run,calc,combi";
-	combi-modi: "window,drun,emoji:rofimoji,run";
+	//modi: "window,drun,run,calc,combi";
+	//combi-modi: "window,drun,emoji:rofimoji,run";
+	modi: "window,drun,run,combi";
+	combi-modi: "window,drun,run";
 	font: "FiraCode Nerd Font Mono 14";
 	show-icons: true;
 	run-shell-command: "{terminal} {cmd}";
@@ -42,3 +44,4 @@ element-icon {
 element selected {
 	color: #f85e84;
 }
+element-text { text-color: inherit; }
