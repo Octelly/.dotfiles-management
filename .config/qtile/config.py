@@ -59,8 +59,11 @@ keys = [
     # Program shortcuts
     # FIXME: add the rest
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "f", lazy.spawn('nautilus -w'), desc="Launch file manager"),
     Key([mod], "r", lazy.spawn("rofi -no-default-config -config ~/.config/awesome/rofi/config.rasi -switchers combi,drun,calc -show combi"),
         desc="Spawn Rofi"),
+    Key(["control", "shift"], "Print", lazy.spawn("i3-maim-clpimg -s"), desc="Selection screenshot"),
+    Key(["control"], "Print", lazy.spawn("i3-maim-clpimg -f"), desc="Fullscreen screenshot"),
 
     # QTile control
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
@@ -70,7 +73,7 @@ keys = [
     # (not implemented)
 
     # Keyboard layouts
-    # (not implemented)
+    Key([mod], "space", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
 
     # Unminimise client
     # (might not be needed)
@@ -167,9 +170,13 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 widget.TextBox("ahoj Kati :)", name="default"),
+                widget.KeyboardLayout(
+                    configured_keyboards=['us','cz(qwerty)']
+                ),
                 widget.Systray(background="#2d2a2e"),
+                widget.Battery(format='{percent:2.0%}%batt'),
                 widget.Clock(format='%H:%M:%S|%A %d.%m.|%b %Y', foreground="#49464e"),
-                MousePosition(),
+                #MousePosition(),  # test thing
                 widget.CurrentLayoutIcon(
                     #padding=0,
                     #scale=False,
