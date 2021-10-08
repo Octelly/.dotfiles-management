@@ -26,13 +26,15 @@
 
 from typing import List  # noqa: F401
 
-from libqtile import bar, layout, widget, qtile
+from libqtile import bar, layout, widget, qtile, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 #from libqtile.
 
 from screeninfo import get_monitors  # how many monitors?
+import os          # autostart path
+import subprocess  #       and exec
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -64,9 +66,15 @@ keys = [
         desc="Spawn Rofi"),
     Key(["control", "shift"], "Print", lazy.spawn("i3-maim-clpimg -s"), desc="Selection screenshot"),
     Key(["control"], "Print", lazy.spawn("i3-maim-clpimg -f"), desc="Fullscreen screenshot"),
+    Key([mod], "l", lazy.spawn(os.path.expanduser('~') + '/.config/qtile/lock.zsh'), desc="Lock session"),
+
+    # HW control
+    Key([], "XF86MonBrightnessUp", lazy.spawn("busctl call org.clightd.clightd /org/clightd/clightd/Backlight org.clightd.clightd.Backlight RaiseAll \"d(bdu)s\" 0.025 0 0 0 \"\""), desc="Brightness up"),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("busctl call org.clightd.clightd /org/clightd/clightd/Backlight org.clightd.clightd.Backlight LowerAll \"d(bdu)s\" 0.025 0 0 0 \"\""), desc="Brightness down"),
 
     # QTile control
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
+    Key(["mod1", "control"], "r", lazy.spawn(os.path.expanduser('~') + '/.config/qtile/restart_picom.zsh'), desc="Restart Picom"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
 
     # Window width change
@@ -174,8 +182,12 @@ screens = [
                     configured_keyboards=['us','cz(qwerty)']
                 ),
                 widget.Systray(background="#2d2a2e"),
-                widget.Battery(format='{percent:2.0%}%batt'),
-                widget.Clock(format='%H:%M:%S|%A %d.%m.|%b %Y', foreground="#49464e"),
+                widget.Battery(format='{percent:2.0%}batt', battery=1),
+                widget.Battery(format='{percent:2.0%}batt', battery=0),
+                widget.Clock(
+                    format='%H:%M:%S|%A %d.%m.|%b %Y'#,
+                    #foreground="#49464e"
+                ),
                 #MousePosition(),  # test thing
                 widget.CurrentLayoutIcon(
                     #padding=0,
@@ -263,3 +275,8 @@ auto_minimize = True
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
+
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser('~')
+    subprocess.call([home + '/.config/qtile/autostart.zsh'])
