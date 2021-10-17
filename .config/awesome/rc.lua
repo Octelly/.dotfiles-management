@@ -23,7 +23,7 @@ require("awful.hotkeys_popup.keys")  -- dynamic hotkeys cheatsheet library
 
 -- ADDONS --
 
-local nice = require("nice")  -- Repo: https://github.com/mut-ex/awesome-wm-nice
+--local nice = require("nice")  -- Repo: https://github.com/mut-ex/awesome-wm-nice
                               -- An Awesome WM module that add MacOS-like
                               -- window decorations, with seamless titlebars,
                               -- double click to maximize, and window shade
@@ -75,23 +75,23 @@ bling.widget.tag_preview.enable {
 }   
 
 -- initialise nice addon
-nice {
-    titlebar_items = {
-        left = {},
-        middle = "title",
-        right = {"minimize", "maximize", "close"},
-    },
-    --titlebar_height = 38,
-    no_titlebar_maximized = true,
-    titlebar_height = 42,
-    titlebar_padding_right = 7,
-    tooltips_enabled = false,
-    button_margin_horizontal = 7,
-    button_size = 14,
-    minimize_color = "#f1fa8c",
-    maximize_color = "#50fa7b",
-    close_color =    "#ff5555",
-}
+--nice {
+--    titlebar_items = {
+--        left = {},
+--        middle = "title",
+--        right = {"minimize", "maximize", "close"},
+--    },
+--    --titlebar_height = 38,
+--    no_titlebar_maximized = true,
+--    titlebar_height = 42,
+--    titlebar_padding_right = 7,
+--    tooltips_enabled = false,
+--    button_margin_horizontal = 7,
+--    button_size = 14,
+--    minimize_color = "#f1fa8c",
+--    maximize_color = "#50fa7b",
+--    close_color =    "#ff5555",
+--}
 
 
 -- keyboard layouts
