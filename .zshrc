@@ -33,8 +33,8 @@ alias -- '+x'='chmod +x'
 alias p3=python3
 alias ip3=ipython3
 alias bp3=bpython
-alias ytdl-safe="youtube-dl"
-alias ytdl='youtube-dl --add-metadata -i'
+alias ytdl-safe="yt-dlp --compat-options youtube-dl"
+alias ytdl='ytdl-safe --add-metadata -i'
 alias ytv='ytdl -f "bestvideo[fps>=60]+bestaudio/bestvideo+bestaudio"'
 alias yta='ytdl -f "bestaudio"'
 alias ffmpeg='ffmpeg -hide_banner'
