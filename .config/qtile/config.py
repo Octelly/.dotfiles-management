@@ -72,6 +72,11 @@ keys = [
     Key([], "XF86MonBrightnessUp", lazy.spawn("busctl call org.clightd.clightd /org/clightd/clightd/Backlight org.clightd.clightd.Backlight RaiseAll \"d(bdu)s\" 0.025 0 0 0 \"\""), desc="Brightness up"),
     Key([], "XF86MonBrightnessDown", lazy.spawn("busctl call org.clightd.clightd /org/clightd/clightd/Backlight org.clightd.clightd.Backlight LowerAll \"d(bdu)s\" 0.025 0 0 0 \"\""), desc="Brightness down"),
 
+    Key([], "XF86AudioMute", lazy.spawn("pamixer -t"), desc="Brightness down"),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("pamixer -i 5"), desc="Brightness down"),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("pamixer -d 5"), desc="Brightness down"),
+    Key([], "XF86AudioMicMute", lazy.spawn("pamixer --default-source -t"), desc="Brightness down"),
+
     # QTile control
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key(["mod1", "control"], "r", lazy.spawn(os.path.expanduser('~') + '/.config/qtile/restart_picom.zsh'), desc="Restart Picom"),
@@ -123,7 +128,7 @@ layouts = [
 
         border_width=2,
     ),
-    layout.Max(),
+    layout.Max(margin=5),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
@@ -177,6 +182,7 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
+                #widget.Mpris2(),
                 widget.TextBox("ahoj Kati :)", name="default"),
                 widget.KeyboardLayout(
                     configured_keyboards=['us','cz(qwerty)']
