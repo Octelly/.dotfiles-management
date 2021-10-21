@@ -352,8 +352,12 @@ globalkeys = gears.table.join(
               {description = "lock", group = "awesome"}),
     awful.key({ modkey },            "f",     function () awful.util.spawn_with_shell("nautilus") end,
               {description = "open a file manager", group = "launcher"}),
-    awful.key({ "Control", "Shift" },            "Print",     function () awful.util.spawn_with_shell("maim -s | xclip -selection clipboard -t image/png") end,
+    --awful.key({ "Control", "Shift" },            "Print",     function () awful.util.spawn_with_shell("maim -s | xclip -selection clipboard -t image/png") end,
+    --          {description = "selection screenshot", group = "launcher"}),
+    awful.key({ "Control", "Shift" },            "Print",     function () awful.util.spawn_with_shell("i3-maim-clpimg -s") end,
               {description = "selection screenshot", group = "launcher"}),
+    awful.key({ "Control" },            "Print",     function () awful.util.spawn_with_shell("i3-maim-clpimg -f") end,
+              {description = "fullscreen screenshot", group = "launcher"}),
     
     -- awesome control
     awful.key({ modkey, "Control" }, "r", awesome.restart,
