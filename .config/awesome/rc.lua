@@ -106,6 +106,7 @@ kbdcfg.bind()
 -- This is used later as the default terminal and editor to run.
 --terminal = "x-terminal-emulator"
 terminal = "kitty"
+--terminal = "/usr/bin/zsh /home/ocean/Scripts/big_funny.sh"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
