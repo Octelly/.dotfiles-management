@@ -183,7 +183,8 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 #widget.Mpris2(),
-                widget.TextBox("ahoj Kati :)", name="default"),
+                widget.TextBox("ahoj Kati :)", name="default", background="#78dce8", foreground="1a181a"),
+                widget.TextBox("emi 🥺", name="default", background="#f85e84"),
                 widget.KeyboardLayout(
                     configured_keyboards=['us','cz(qwerty)']
                 ),
