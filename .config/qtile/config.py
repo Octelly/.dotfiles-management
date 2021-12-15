@@ -184,6 +184,13 @@ screens = [
                 ),
                 #widget.Mpris2(),
                 widget.TextBox("ahoj Kati :)", name="default", background="#78dce8", foreground="1a181a"),
+                # ^ the background HEX code is with a hashtag,
+                #   but the foreg. HEX code is without one
+                #
+                #   normally, I would fix this, but Emi's OCD got
+                #   triggered because of this and I think that's
+                #   very cute <3
+
                 widget.TextBox("emi 🥺", name="default", background="#f85e84"),
                 widget.KeyboardLayout(
                     configured_keyboards=['us','cz(qwerty)']
