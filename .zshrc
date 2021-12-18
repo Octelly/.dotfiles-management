@@ -39,6 +39,9 @@ alias ffmpeg='ffmpeg -hide_banner'
 # - btop
 # - fzf
 # - z (zoxide)
+# - duf
+alias legacy-df=$(which df)
+alias df='duf'
 
 
 export CHEAT_USE_FZF=true
