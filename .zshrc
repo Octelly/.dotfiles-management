@@ -49,6 +49,9 @@ HYPHEN_INSENSITIVE="false"
 DISABLE_AUTO_UPDATE="false"
 DISABLE_UPDATE_PROMPT="true"
 
+# oh-my-zsh is bad and aliases ls
+# to something without this
+DISABLE_LS_COLORS="true"
 
 
 export EDITOR=/usr/bin/nvim
