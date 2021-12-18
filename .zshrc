@@ -23,7 +23,6 @@ if which bat > /dev/null; then
 elif which batcat > /dev/null; then
 	alias cat='batcat'
 fi
-#alias cat=which bat || which batcat
 # - lsd
 alias ls='lsd'
 # - ranger
