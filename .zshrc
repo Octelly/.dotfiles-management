@@ -12,6 +12,21 @@ export PATH=${DEVKITPRO}/tools/bin:$PATH
 export PATH=$HOME/.emacs.d/bin:$PATH
 
 
+# COMMAND-LINE UTILS
+# - cht.sh
+# - bat
+# - lsd
+# - ranger
+# - yt-dlp
+# - ffmpeg
+# - ncdu
+# - btop
+# - fzf
+# - z (zoxide)
+
+
+export CHEAT_USE_FZF=true
+
 
 CASE_SENSITIVE="false"
 HYPHEN_INSENSITIVE="false"
@@ -60,6 +75,7 @@ alias cls='clear'
 alias cl='clear'
 
 alias cht='cht.sh'
+alias cheat='cht.sh'
 
 alias myip='curl ipinfo.io/ip'
 
@@ -189,6 +205,7 @@ if ! zgen saved; then
     # completions
     zgen load zsh-users/zsh-completions src
     zgen load zsh-users/zsh-autosuggestions
+    zgen load cheat/cheat scripts/cheat.zsh
     #zgen load marlonrichert/zsh-autocomplete . main  # LAGGY!
 
     # theme
