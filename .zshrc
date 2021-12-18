@@ -14,11 +14,22 @@ export PATH=$HOME/.emacs.d/bin:$PATH
 
 # COMMAND-LINE UTILS
 # - cht.sh
+alias cht='cht.sh'
+alias cheat='cht.sh'
 # - bat
+alias cat='bat'
 # - lsd
+alias ls='lsd'
 # - ranger
+alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+alias f=ranger
 # - yt-dlp
+alias ytdl-safe="yt-dlp --compat-options youtube-dl"
+alias ytdl='ytdl-safe --add-metadata -i'
+alias ytv='ytdl -f "bestvideo[fps>=60]+bestaudio/bestvideo+bestaudio"'
+alias yta='ytdl -f "bestaudio"'
 # - ffmpeg
+alias ffmpeg='ffmpeg -hide_banner'
 # - ncdu
 # - btop
 # - fzf
@@ -48,11 +59,6 @@ alias -- '+x'='chmod +x'
 alias p3=python3
 alias ip3=ipython3
 alias bp3=bpython
-alias ytdl-safe="yt-dlp --compat-options youtube-dl"
-alias ytdl='ytdl-safe --add-metadata -i'
-alias ytv='ytdl -f "bestvideo[fps>=60]+bestaudio/bestvideo+bestaudio"'
-alias yta='ytdl -f "bestaudio"'
-alias ffmpeg='ffmpeg -hide_banner'
 alias sha256='shasum -a 256'
 
 alias wine32='WINEPREFIX=~/.wine32 WINEARCH=win32 wine'
@@ -74,14 +80,9 @@ alias clr='clear'
 alias cls='clear'
 alias cl='clear'
 
-alias cht='cht.sh'
-alias cheat='cht.sh'
-
 alias myip='curl ipinfo.io/ip'
 
 alias mkcd='take'
-alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
-alias f=ranger
 alias ff='nautilus . & disown'
 alias disk='df -h'
 
