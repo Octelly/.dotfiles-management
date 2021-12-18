@@ -18,7 +18,12 @@ export PATH=$HOME/.cargo/bin:$PATH
 alias cht='cht.sh'
 alias cheat='cht.sh'
 # - bat
-alias cat='bat'
+if which bat > /dev/null; then
+	alias cat='bat'
+elif which batcat > /dev/null; then
+	alias cat='batcat'
+fi
+#alias cat=which bat || which batcat
 # - lsd
 alias ls='lsd'
 # - ranger
