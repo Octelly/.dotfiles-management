@@ -10,6 +10,7 @@ export PATH=${DEVKITPRO}/tools/bin:$PATH
 
 
 export PATH=$HOME/.emacs.d/bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
 
 
 # COMMAND-LINE UTILS
