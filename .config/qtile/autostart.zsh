@@ -1,6 +1,7 @@
 #!/usr/bin/zsh
 
-wired -r & disown
+#wired -r & disown
+/usr/bin/dunst & disown
 /usr/lib/policykit-1-pantheon/io.elementary.desktop.agent-polkit & disown
 
 blueberry-tray
