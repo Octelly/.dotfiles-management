@@ -5,7 +5,7 @@ colors:
   title: none
 default_hour: 9
 default_minute: 0
-editor: /usr/bin/vim
+editor: /usr/bin/nvim
 encrypt: false
 highlight: true
 indent_character: '|'
