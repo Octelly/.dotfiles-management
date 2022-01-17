@@ -16,7 +16,7 @@
 132,128,137		track time
 132,128,137		track index
 82,80,84		track artist
-8,250,134		album line
+255,250,134		album line
 
 227,225,228		track playing
 227,225,228		index playing
@@ -35,6 +35,7 @@
 50,48,53	select highlight
 #248,94,132	gallery highlight
 171,157,242	gallery highlight
+171,157,242	gallery title
 
 #-Menu-------------
 26,24,26        menu background
