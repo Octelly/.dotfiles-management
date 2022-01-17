@@ -32,12 +32,15 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 #from libqtile.
 
-from screeninfo import get_monitors  # how many monitors?
+#from screeninfo import get_monitors  # how many monitors?
 import os          # autostart path
 import subprocess  #       and exec
 
 mod = "mod4"
 terminal = guess_terminal()
+
+
+rofi_action = lazy.spawn("rofi -no-default-config -config ~/.config/awesome/rofi/config.rasi -switchers combi,drun,calc -show combi")
 
 keys = [
 
@@ -62,8 +65,10 @@ keys = [
     # FIXME: add the rest
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "f", lazy.spawn('nautilus -w'), desc="Launch file manager"),
-    Key([mod], "r", lazy.spawn("rofi -no-default-config -config ~/.config/awesome/rofi/config.rasi -switchers combi,drun,calc -show combi"),
-        desc="Spawn Rofi"),
+
+    Key([mod], "r", rofi_action, desc="Spawn Rofi"),
+    Key([], "XF86Search", rofi_action, desc="Spawn Rofi"),
+
     Key(["control", "shift"], "Print", lazy.spawn("i3-maim-clpimg -s"), desc="Selection screenshot"),
     Key(["control"], "Print", lazy.spawn("i3-maim-clpimg -f"), desc="Fullscreen screenshot"),
     Key([mod], "l", lazy.spawn(os.path.expanduser('~') + '/.config/qtile/lock.zsh'), desc="Lock session"),
@@ -213,7 +218,7 @@ screens = [
             background="#2d2a2e",
             margin=5
         ),
-    ) for _ in range(len(get_monitors()))
+    ) for _ in range(1) #for _ in range(len(get_monitors()))
 ]
 
 groups = [ Group(i) for i in "123456789" ]
