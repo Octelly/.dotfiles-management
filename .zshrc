@@ -80,7 +80,7 @@ alias winetricksjp='WINEPREFIX=~/.wineJP LC_ALL="ja_JP" LANG=ja_JP.UTF-8 winetri
 
 alias timestamp='date +%s'
 
-alias ssh='kitty kitten ssh'
+alias ssh='kitty +kitten ssh'
 
 alias :q=exit
 alias :wq="echo haha yes, imma write that to the disk for sure :\)"
