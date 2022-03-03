@@ -6,5 +6,8 @@ My startpage is [start.johnystar.moe](https://start.johnystar.moe/). The source 
 
 ## Screenshots
 
+![Qtile, Kitty and ZSH screenshot](dotfiles-screenshots/qtile-kitty-zsh.png)
+Qtile, Kitty and ZSH rice
+
 ![Rofi screenshot](dotfiles-screenshots/rofi1.png)
 Rofi rice
