@@ -98,7 +98,12 @@ alias ff='nautilus . & disown'
 alias disk='df -h'
 
 alias conf='$EDITOR $HOME/.zshrc'
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles-management/ --work-tree=$HOME'
+
+if which yadm > /dev/null; then
+	alias config='yadm'
+else
+	alias config='/usr/bin/git --git-dir=$HOME/.dotfiles-management/ --work-tree=$HOME'
+fi
 
 # file assoc
 
