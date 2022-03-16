@@ -27,7 +27,7 @@
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget, qtile, hook
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 #from libqtile.
@@ -69,6 +69,8 @@ keys = [
     Key([mod], "r", rofi_action, desc="Spawn Rofi"),
     Key([], "XF86Search", rofi_action, desc="Spawn Rofi"),
 
+    Key([mod], "period", lazy.spawn("rofimoji"), desc="Open emoji picker"),
+
     Key(["control", "shift"], "Print", lazy.spawn("i3-maim-clpimg -s"), desc="Selection screenshot"),
     Key(["control"], "Print", lazy.spawn("i3-maim-clpimg -f"), desc="Fullscreen screenshot"),
     Key([mod], "l", lazy.spawn(os.path.expanduser('~') + '/.config/qtile/lock.zsh'), desc="Lock session"),
@@ -88,7 +90,34 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
 
     # Window width change
-    # (not implemented)
+    KeyChord([mod], "grave", [
+            # SHIFT
+            Key([], "Down", lazy.layout.down(), desc="Shift down"),
+            Key([], "Up", lazy.layout.up(), desc="Shift up"),
+            Key([], "Left", lazy.layout.left(), desc="Shift left"),
+            Key([], "Right", lazy.layout.right(), desc="Shift right"),
+            # SHUFFLE
+            Key(["shift"], "Down", lazy.layout.shuffle_down(), desc="Shuffle down"),
+            Key(["shift"], "Up", lazy.layout.shuffle_up(), desc="Shuffle up"),
+            Key(["shift"], "Left", lazy.layout.shuffle_left(), desc="Shuffle left"),
+            Key(["shift"], "Right", lazy.layout.shuffle_right(), desc="Shuffle right"),
+            # FLIP
+            Key(["mod1"], "Down", lazy.layout.flip_down(), desc="Flip down"),
+            Key(["mod1"], "Up", lazy.layout.flip_up(), desc="Flip up"),
+            Key(["mod1"], "Left", lazy.layout.flip_left(), desc="Flip left"),
+            Key(["mod1"], "Right", lazy.layout.flip_right(), desc="Flip right"),
+            # GROW
+            Key(["control"], "Down", lazy.layout.grow_down(), desc="Grow down"),
+            Key(["control"], "Up", lazy.layout.grow_up(), desc="Grow up"),
+            Key(["control"], "Left", lazy.layout.grow_left(), desc="Grow left"),
+            Key(["control"], "Right", lazy.layout.grow_right(), desc="Grow right"),
+            # SPECIAL
+            Key([], "BackSpace", lazy.layout.normalize(), desc="Normalize"),
+            Key([], "Return", lazy.layout.toggle_split(), desc="Toggle split"),
+            Key([], "q", lazy.window.kill(), desc="Kill focused window"),
+        ],
+        mode="window"
+    ),
 
     # Keyboard layouts
     Key([mod], "space", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
@@ -185,7 +214,7 @@ screens = [
                     chords_colors={
                         'launch': ("#ff0000", "#ffffff"),
                     },
-                    name_transform=lambda name: name.upper(),
+                    name_transform=lambda name: ' -- %s -- ' % name.upper(),
                 ),
                 #widget.Mpris2(),
                 widget.TextBox("ahoj Kati :)", name="default", background="#78dce8", foreground="1a181a"),
