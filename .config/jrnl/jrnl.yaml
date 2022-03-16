@@ -1,16 +1,18 @@
+journals:
+  default: ~/.jrnl/journal.txt
+
 colors:
   body: none
   date: none
-  tags: none
-  title: none
+  tags: cyan
+  title: green
+highlight: true
+
 default_hour: 9
 default_minute: 0
 editor: /usr/bin/nvim
 encrypt: false
-highlight: true
 indent_character: '|'
-journals:
-  default: ~/.jrnl/journal.txt
 linewrap: 79
 tagsymbols: '@'
 template: false
