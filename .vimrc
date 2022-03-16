@@ -23,9 +23,10 @@ command! -nargs=0 Sw w !sudo tee % > /dev/null
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'chrisbra/Colorizer'
 Plug 'wakatime/vim-wakatime'
 Plug 'vim-airline/vim-airline'
-Plug 'valloric/youcompleteme'
 
 call plug#end()
