@@ -1,0 +1,217 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="orig_data" version="1.3.0" audacityversion="2.4.1" sel0="15.0000000000" sel1="19.0000000000" vpos="2208" h="0.0000000000" zoom="27.1301358888" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="0" linked="1" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1fabf.au" len="176400" min="-0.756653" max="0.689056" rms="0.154326"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="1" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="0.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f5a1.au" len="176400" min="-0.779419" max="0.702667" rms="0.157507"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="0" linked="1" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="1.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f602.au" len="176400" min="-0.756653" max="0.689056" rms="0.154326"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="1" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="1.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f51d.au" len="176400" min="-0.779419" max="0.702667" rms="0.157507"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="0" linked="1" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="2.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f396.au" len="156752" min="-0.675201" max="0.693634" rms="0.165431"/>
+				</waveblock>
+				<waveblock start="156752">
+					<simpleblockfile filename="eff1f5a6.au" len="19648" min="-0.004822" max="0.004333" rms="0.002071"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="1" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="2.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1fb20.au" len="156752" min="-0.707886" max="0.722351" rms="0.168697"/>
+				</waveblock>
+				<waveblock start="156752">
+					<simpleblockfile filename="eff1f515.au" len="19648" min="-0.004913" max="0.004486" rms="0.00211"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="0" linked="1" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="4.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1fcfc.au" len="161664" min="-0.767944" max="0.785828" rms="0.193574"/>
+				</waveblock>
+				<waveblock start="161664">
+					<simpleblockfile filename="eff1ff0a.au" len="14736" min="-0.00589" max="0.005768" rms="0.003165"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="1" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="4.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f1cd.au" len="161664" min="-0.782593" max="0.807892" rms="0.196031"/>
+				</waveblock>
+				<waveblock start="161664">
+					<simpleblockfile filename="eff1fdf5.au" len="14736" min="-0.006073" max="0.00589" rms="0.003283"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="0" linked="1" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="7.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1ff1f.au" len="176400" min="-0.753815" max="0.759827" rms="0.082186"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="1" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="7.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f363.au" len="176400" min="-0.757538" max="0.79538" rms="0.084284"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="0" linked="1" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="9.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1ff1f.au" len="176400" min="-0.753815" max="0.759827" rms="0.082186"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="1" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="9.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f363.au" len="176400" min="-0.757538" max="0.79538" rms="0.084284"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="0" linked="1" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="11.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f2c7.au" len="176400" min="-0.734711" max="0.730896" rms="0.154091"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="1" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="11.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f255.au" len="176400" min="-0.796509" max="0.753021" rms="0.156816"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="0" linked="1" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="13.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1fabf.au" len="176400" min="-0.756653" max="0.689056" rms="0.154326"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="1" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="13.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f5a1.au" len="176400" min="-0.779419" max="0.702667" rms="0.157507"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="0" linked="1" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="14.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f2c7.au" len="176400" min="-0.734711" max="0.730896" rms="0.154091"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="0" height="150" minimized="0" channel="1" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="14.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f255.au" len="176400" min="-0.796509" max="0.753021" rms="0.156816"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="1" height="150" minimized="0" channel="0" linked="1" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="15.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1ff1f.au" len="176400" min="-0.753815" max="0.759827" rms="0.082186"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="bells" isSelected="1" height="150" minimized="0" channel="1" linked="0" mute="0" solo="0" rate="44100" gain="1.0" pan="0.0" colorindex="0">
+		<waveclip offset="15.00000000" colorindex="0">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="176400">
+				<waveblock start="0">
+					<simpleblockfile filename="eff1f363.au" len="176400" min="-0.757538" max="0.79538" rms="0.084284"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

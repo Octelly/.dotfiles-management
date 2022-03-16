@@ -32,6 +32,8 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 #from libqtile.
 
+import existence_reminder
+
 #from screeninfo import get_monitors  # how many monitors?
 import os          # autostart path
 import subprocess  #       and exec
@@ -216,7 +218,13 @@ screens = [
                     },
                     name_transform=lambda name: ' -- %s -- ' % name.upper(),
                 ),
-                #widget.Mpris2(),
+
+                widget.GenPollText(
+                    func=lambda: str(existence_reminder.tick()),
+                    markup=False,
+                    update_interval=1
+                ),
+
                 widget.TextBox("ahoj Kati :)", name="default", background="#78dce8", foreground="1a181a"),
                 # ^ the background HEX code is with a hashtag,
                 #   but the foreg. HEX code is without one
