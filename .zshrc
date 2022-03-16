@@ -105,6 +105,12 @@ else
 	alias config='/usr/bin/git --git-dir=$HOME/.dotfiles-management/ --work-tree=$HOME'
 fi
 
+zstyle ':autocomplete:*' min-delay 0.1  # float
+# Wait this many seconds for typing to stop, before showing completions.
+
+zstyle ':autocomplete:*' min-input 1  # int
+# Wait until this many characters have been typed, before showing completions.
+
 # file assoc
 
 alias -s spc=mpv
@@ -223,7 +229,7 @@ if ! zgen saved; then
     zgen load zsh-users/zsh-completions src
     zgen load zsh-users/zsh-autosuggestions
     zgen load cheat/cheat scripts/cheat.zsh
-    #zgen load marlonrichert/zsh-autocomplete . main  # LAGGY!
+    zgen load marlonrichert/zsh-autocomplete . main  # LAGGY!
 
     # theme
     #zgen load romkatv/powerlevel10k powerlevel10k
