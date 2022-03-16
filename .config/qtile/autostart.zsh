@@ -10,4 +10,4 @@ nm-applet & disown
 clight-gui --tray & disown
 
 picom --experimental-backends --config /home/ocean/.config/awesome/picom/picom.conf & disown
-nitrogen --set-zoom-fill ~/Wallpapers/16-9/aqGed18.jpg
+nitrogen --set-zoom-fill ~/Wallpapers/16-9/wallhaven-rdz76w-cropped.png
