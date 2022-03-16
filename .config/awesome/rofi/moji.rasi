@@ -1,0 +1,65 @@
+configuration {
+	show-icons: true;
+	run-shell-command: "{terminal} {cmd}";
+	drun-display-format: "{name}";
+	window-format: "{c}   {t}";
+	display-run: "   ";
+	display-drun: "   ";
+	display-window: "   ";
+	display-combi: "   ";
+}
+
+* {
+	background-color: #00000000;
+	color: #e3e1e4;
+}
+
+window {
+	font: "FiraCode Nerd Font Mono 14";
+	background-color: #2d2a2e;
+	location: south;
+	anchor: south;
+	y-offset: -30;
+	width: 40ch;
+}
+
+listview {
+	columns: 6;
+	lines: 6;
+	dynamic: true;
+	cycle: false;
+}
+
+inputbar {
+	background-color: #e5c463;
+}
+
+prompt, entry {
+	color: #2d2a2e;
+}
+
+entry, prompt{
+	padding: 0.25em 0.5ch;
+}
+
+message {
+	padding: 0.5em 0.5ch;
+	margin: 0;
+	horizontal-align: 0.5;
+}
+
+element {
+	padding: 0.5em 0.5ch;
+	margin: 0;
+}
+
+element-icon {
+	enabled: false;
+}
+
+element selected {
+	//color: #f85e84;
+	background-color: #e5c463;
+	color: #2d2a2e;
+}
+element-text { text-color: inherit; }
