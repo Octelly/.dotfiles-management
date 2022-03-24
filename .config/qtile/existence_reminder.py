@@ -1,6 +1,7 @@
 import time, subprocess, pathlib, random
 
 def tick():
+    # HOURLY MESSAGES {{{
     awake_comment = [
         #  0:00
         ["If you go to sleep now I'll pretend you went to sleep before midnight.", "/\\\nThat number is only going to get scarier now", "midnight\nquiet... so quiet..."],
@@ -51,6 +52,7 @@ def tick():
         # 23:00
         ["Next stop:\nMidnight (endstation)"]
     ]
+    # }}}
 
     unixtime = int(time.time())
     localtime_tuple = time.localtime(unixtime)
