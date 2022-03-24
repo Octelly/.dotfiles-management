@@ -1,49 +1,34 @@
-# Copyright (c) 2010 Aldo Cortesi
-# Copyright (c) 2010, 2014 dequis
-# Copyright (c) 2012 Randall Ma
-# Copyright (c) 2012-2014 Tycho Andersen
-# Copyright (c) 2012 Craig Barnes
-# Copyright (c) 2013 horsik
-# Copyright (c) 2013 Tao Sauvage
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# ┏━┃ ━┏┛┛┃  ┏━┛  ┏━┛┏━┃┏━ ┏━┛┛┏━┛
+# ┃ ┃  ┃ ┃┃  ┏━┛  ┃  ┃ ┃┃ ┃┏━┛┃┃ ┃
+# ━━━┛ ┛ ┛━━┛━━┛  ━━┛━━┛┛ ┛┛  ┛━━┛
 
+# IMPORTS {{{
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget, qtile, hook
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-#from libqtile.
 
 import existence_reminder
 
 #from screeninfo import get_monitors  # how many monitors?
 import os          # autostart path
 import subprocess  #       and exec
+# }}}
 
+# GLOBALS {{{
 mod = "mod4"
 terminal = guess_terminal()
 
-
 rofi_action = lazy.spawn("rofi -no-default-config -config ~/.config/awesome/rofi/config.rasi -switchers combi,drun,calc -show combi")
+# }}}
 
+# KEYBINDS (KEYBOARD) {{{
+
+# note:
+# A lot of the comments in this section
+# reference my old AwesomeWM keybinds.
 keys = [
 
     # Keybinds cheatsheet
@@ -139,7 +124,9 @@ keys = [
     Key([mod, "shift"], "t", lazy.window.toggle_floating(), desc="Pain"),
     # FIXME: "clientkeys" from AwesomeWM
 ]
+# }}}
 
+# BUTTONBINDS (MOUSE) {{{
 # Drag floating layouts.
 mouse = [
     # Switch between groups
@@ -153,7 +140,9 @@ mouse = [
          start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
+# }}}
 
+# LAYOUTS {{{
 layouts = [
     layout.Columns(
         border_focus_stack='#d75f5f',
@@ -177,7 +166,9 @@ layouts = [
     # layout.VerticalTile(),
     # layout.Zoomy(),
 ]
+# }}}
 
+# TOP BAR {{{
 widget_defaults = dict(
     font='FiraCode Nerd Font Mono',
     fontsize=13,
@@ -225,6 +216,8 @@ screens = [
                     update_interval=1
                 ),
 
+                #widget.TextBox("", name="default", foreground="#78dce8", padding=0, fontsize=24),
+                widget.TextBox("", name="default", foreground="#78dce8", padding=0, fontsize=24),
                 widget.TextBox("ahoj Kati :)", name="default", background="#78dce8", foreground="1a181a"),
                 # ^ the background HEX code is with a hashtag,
                 #   but the foreg. HEX code is without one
@@ -233,22 +226,47 @@ screens = [
                 #   triggered because of this and I think that's
                 #   very cute <3
 
+                widget.TextBox("", name="default", background="#78dce8", foreground="#f85e84", padding=0, fontsize=24),
+
                 widget.TextBox("emi 🥺", name="default", background="#f85e84"),
+                #widget.TextBox("", name="default", foreground="#f85e84", padding=0, fontsize=24),
+
+                widget.TextBox("", name="default", background="#f85e84", foreground="#e3e1e4", padding=0, fontsize=24),
+
                 widget.KeyboardLayout(
-                    configured_keyboards=['us','cz(qwerty)']
+                    fmt=" {}",
+                    configured_keyboards=['us','cz(qwerty)'],
+                    background="#e3e1e4",
+                    foreground="#1a181a",
                 ),
-                widget.Systray(background="#2d2a2e"),
-                widget.Battery(format='{percent:2.0%}batt', battery=1),
-                widget.Battery(format='{percent:2.0%}batt', battery=0),
+
+                widget.TextBox("", name="default", background="#e3e1e4", foreground="#49464e", padding=0, fontsize=24),
+
+                widget.Systray(background="#49464e"),
+
+                widget.TextBox("", name="default", background="#49464e", foreground="#9ecd6f", padding=0, fontsize=24),
+
+                widget.Battery(format='{percent:2.0%}batt', battery=1, background="#9ecd6f", foreground="#1a181a", low_foreground="#f85e84"),
+                widget.Battery(format='{percent:2.0%}batt', battery=0, background="#9ecd6f", foreground="#1a181a", low_foreground="#f85e84"),
+
+                widget.TextBox("", name="default", background="#9ecd6f", foreground="#e5c463", padding=0, fontsize=24),
+
                 widget.Clock(
-                    format='%H:%M:%S|%A %d.%m.|%b %Y'#,
-                    #foreground="#49464e"
+                    format='%H:%M:%S|%A %d.%m.|%b %Y',
+                    background="#e5c463",
+                    foreground="#1a181a",
                 ),
-                #MousePosition(),  # test thing
+
+                widget.TextBox("", name="default", background="#e5c463", foreground="#1a181a", padding=0, fontsize=24),
+
                 widget.CurrentLayoutIcon(
                     #padding=0,
                     #scale=False,
+                    background="#1a181a",
+                    foreground="#e3e1e4",
                 ),
+
+                #MousePosition(),  # test thing
             ],
             size=24,
             opacity=0.9,
@@ -257,7 +275,9 @@ screens = [
         ),
     ) for _ in range(1) #for _ in range(len(get_monitors()))
 ]
+# }}}
 
+# GROUPS {{{
 groups = [ Group(i) for i in "123456789" ]
 
 # for screen in range(len(screens)):
@@ -287,11 +307,13 @@ for i in groups:
         # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
         #     desc="move focused window to group {}".format(i.name)),
     ])
+# }}}
+
+# MISC {{{
 
 # @subscribe.client_mouse_enter
 # def change_screen_focus(c):
 #     qtile.focus_screen(c.group.screen.index)
-
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
@@ -332,7 +354,11 @@ auto_minimize = True
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
 
+# }}}
+
+# AUTOSTART RUNNER {{{
 @hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/autostart.zsh'])
+# }}}
