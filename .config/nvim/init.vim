@@ -84,6 +84,7 @@ call plug#begin('~/.vim/plugged')
 " auto completion engine
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 
 " highlight colour codes
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
