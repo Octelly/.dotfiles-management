@@ -73,7 +73,14 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 "let g:airline_powerline_fonts = 1
 "let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 "set signcolumn=yes:9
-let g:coq_settings = {"auto_start": "shut-up"}
+let g:coq_settings = {
+  \ "auto_start": "shut-up",
+  \ "clients": {
+    \ "third_party.enabled": v:true
+  \ },
+  \ "limits.completion_auto_timeout": 10,
+  \ "match.max_results": 20
+\ }
 let g:Hexokinase_highlighters = [ 'background' ]
 let g:dashboard_default_executive = 'telescope'
 " }}}
@@ -105,6 +112,9 @@ Plug 'jiangmiao/auto-pairs'
 " file tree
 "Plug 'preservim/nerdtree'
 Plug 'kyazdani42/nvim-tree.lua'
+
+" better filetype recognition
+Plug 'nathom/filetype.nvim'
 
 " shortcut hinting
 Plug 'folke/which-key.nvim'
@@ -198,6 +208,24 @@ require('feline').setup{
 }
 
 -- }}}
+
+-- COQ.THIRDPARTY SETTINGS {{{
+require("coq_3p"){
+  { src = "nvimlua", short_name = "nLUA", conf_only = true },
+
+  --{ src = "figlet", short_name = "BIG" }
+}
+-- }}}
+
+-- FILETYPE SETTINGS {{{
+require("filetype").setup({
+    overrides = {
+        extensions = {
+            jrnl = "jrnl.sh"
+        }
+    }
+})
+--}}}
 
 -- PLUGIN SETUP {{{
 require("notify").setup({
