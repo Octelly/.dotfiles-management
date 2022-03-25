@@ -48,7 +48,8 @@ noremap <C-S-Tab> :BufferPrevious<CR>
 " noremap <C-w> :BufferClose
 
 " CTRL-b for file tree
-noremap <C-b> :NvimTreeToggle<CR>
+" noremap <C-b> :NvimTreeToggle<CR>
+" /\ moved to PLUGINS - not jrnl.sh
 " }}}
 
 " CUSTOM COMMANDS {{{
@@ -94,24 +95,24 @@ Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 
 " highlight colour codes
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'rrethy/vim-hexokinase', { 'do': 'make', 'on': [] }
 
 " let the FBI spy on me
-Plug 'wakatime/vim-wakatime'
+Plug 'wakatime/vim-wakatime', { 'on': [] }
 
 " status line goessss
 "Plug 'vim-airline/vim-airline'
 Plug 'feline-nvim/feline.nvim'
 
 " language pack
-Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot', { 'on': [] }
 
 " the way you'd expect Vim to handle brackets
-Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs', { 'on': [] }
 
 " file tree
 "Plug 'preservim/nerdtree'
-Plug 'kyazdani42/nvim-tree.lua'
+Plug 'kyazdani42/nvim-tree.lua' ", { 'on': [] }
 
 " better filetype recognition
 Plug 'nathom/filetype.nvim'
@@ -127,7 +128,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'rcarriga/nvim-notify'
 
 " tabs
-Plug 'romgrk/barbar.nvim'
+Plug 'romgrk/barbar.nvim', { 'on': [] }
 
 " icons :)
 "Plug 'ryanoasis/vim-devicons'
@@ -137,6 +138,26 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'glepnir/dashboard-nvim'
 
 call plug#end()
+
+augroup filetype_jrnl
+  autocmd!
+  " autocmd filetype * if &ft!="jrnl.sh"|call plug#load(
+  "       \ 'vim-hexokinase',
+  "       \ 'vim-wakatime',
+  "       \ 'vim-polyglot',
+  "       \ 'auto-pairs',
+  "       \ 'nvim-tree.lua',
+  "       \ 'barbar.nvim',
+  "       \)|lua require('nvim-tree').setup()
+  "       \|endif
+  autocmd filetype * if &ft!="jrnl.sh"|call plug#load(
+        \ 'vim-hexokinase',
+        \ 'vim-wakatime',
+        \ 'vim-polyglot',
+        \ 'auto-pairs',
+        \ 'barbar.nvim',
+        \)|noremap <C-b> :NvimTreeToggle<CR>|endif
+augroup END
 " }}}
 
 " ╻  ╻ ╻┏━┓
@@ -182,6 +203,23 @@ local components = {
   inactive = shared_components,
 }
 
+local jrnl_components = {
+  active = {
+    {
+        {
+          provider = 'jrnl.sh',
+          hl = {
+            fg = 'black',
+            bg = 'blue'
+          },
+          right_sep = 'slant_right',
+        }
+    },
+    {}
+  },
+  inactive = {}
+}
+
 local feline_theme = {
   fg        = '#e3e1e4',
   bg        = '#2d2a2e',
@@ -203,7 +241,18 @@ local feline_theme = {
 }
 
 require('feline').setup{
-  components = components,
+  conditional_components = {
+    lua_funcs.merge_tables(components, {
+      condition = function()
+        return vim.bo.filetype ~= 'jrnl.sh'
+      end
+    }),
+    lua_funcs.merge_tables(jrnl_components, {
+      condition = function()
+        return vim.bo.filetype == 'jrnl.sh'
+      end
+    })
+  },
   theme = feline_theme
 }
 
