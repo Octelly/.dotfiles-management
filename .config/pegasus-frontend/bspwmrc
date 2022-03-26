@@ -1,0 +1,7 @@
+#!/usr/bin/zsh
+
+bspc desktop focused -l monocle
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+
+pegasus-fe --disable-menu-appclose --disable-menu-settings
