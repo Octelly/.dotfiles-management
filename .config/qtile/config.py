@@ -19,7 +19,8 @@ import subprocess  #       and exec
 
 # GLOBALS {{{
 mod = "mod4"
-terminal = guess_terminal()
+#terminal = guess_terminal()
+terminal = 'kitty'
 
 rofi_action = lazy.spawn("rofi -no-default-config -config ~/.config/awesome/rofi/config.rasi -switchers combi,drun,calc -show combi")
 # }}}
