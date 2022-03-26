@@ -2,4 +2,5 @@
 /home/ocean/Roms/PC Engine
 /home/ocean/.config/pegasus-frontend/collections/DRM-free
 /home/ocean/.config/pegasus-frontend/collections/media
+/home/ocean/.config/pegasus-frontend/collections/applications/
 /home/ocean/.lexaloffle/pico-8/carts
