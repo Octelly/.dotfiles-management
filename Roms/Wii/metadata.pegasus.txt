@@ -1,0 +1,14 @@
+collection:	Wii
+shortname:	Wii
+extensions: iso, wbfs
+launch:			/usr/bin/dolphin-emu -b -c -e "{file.path}"
+
+game:					Mario Kart Wii (USA)
+developer:		Nintendo EAD
+publisher:		Nintendo
+genres:				Action, Racing, Kart
+rating:				80%
+players:			1-12
+summary:			The best Mario Kart
+description:	Mario Kart Wii is an installment of the long-running Mario Kart series, but here for the Nintendo Wii, where you take control of various Nintendo characters to race through different tracks and win the Grand Prix, using a variety of vehicles and items spread through the track to help you.
+file:					Mario Kart Wii (USA) (En,Fr,Es).nkit.iso

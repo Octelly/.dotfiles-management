@@ -1,0 +1,5 @@
+/home/ocean/Roms/Wii
+/home/ocean/Roms/PC Engine
+/home/ocean/.config/pegasus-frontend/collections/DRM-free
+/home/ocean/.config/pegasus-frontend/collections/media
+/home/ocean/.lexaloffle/pico-8/carts

@@ -1,0 +1,32 @@
+collection:	DRM-free
+shortname:	noDRM
+extensions:	zsh
+launch:			/usr/bin/zsh "{file.path}"
+
+game:					TETR.IO
+developer:		osk
+publisher:		osk
+genres:				Action, Puzzle
+rating:				69%
+players:			1
+summary:			TETR.IO is a modern yet familiar online stacker.
+description:	TETR.IO is a modern yet familiar online stacker. Play against friends and foes all over the world, or claim a spot on the leaderboards - the stacker future is yours! Programmed, developed and designed by osk
+file:					tetrio-desktop.zsh
+
+game:					Sonic Robo Blast 2 Kart
+developer:		Kart Krew
+publisher:		Kart Krew
+genres:				Action, Racing, Kart
+rating:				69%
+players:			1-4
+summary:			SRB2Kart is a classic styled kart racer, complete with beautiful courses, and wacky items.
+description:	SRB2Kart is a classic styled kart racer, complete with beautiful courses, and wacky items.
+							Of course, because it’s SRB2Kart, it has a Sonic twist that really shows the classic charm
+							that a lot of us know and love from the good old days™.
+							
+							We have 100 jam-packed maps for you to bump, explode, and sparkle your way through, from
+							luscious beaches, to Eggman’s dance floor, to England on a good day. All lovingly crafted
+							by many different people. You’ll notice almost every aspect of the game has an immense love
+							and inspiration from the classic sonic games. From the items such as Ballhog, which literally
+							throws bouncey explodey balls at people, to the maps which are bursting with that Sonic feel.
+file:					srb2kart.zsh

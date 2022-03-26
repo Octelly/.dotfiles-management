@@ -1,0 +1,37 @@
+collection:	PICO-8
+shortname:	pico8
+extensions:	p8
+launch:			/home/ocean/.config/itch/apps/pico-8/pico-8/pico8 -run "{file.path}"
+
+# SPECIAL
+game:					PICO-8 | Splore
+sort-by:			0
+developer:		Lexaloffle
+publisher:		Lexaloffle
+genres:				Meta
+rating:				69%
+players:			1
+summary:			PICO-8 cartridge explorer
+description:	PICO-8 cartridge explorer - get more software here!
+launch:				/home/ocean/.config/itch/apps/pico-8/pico-8/pico8 -splore
+file:					splore
+
+game:					Celeste Classic
+developer:		Maddy Makes Games
+publisher:		Maddy Makes Games
+genres:				Platformer
+rating:				69%
+players:			1
+summary:			Climb a mountain
+description:	Climb a mountain - the classic version of Celeste
+file:					celeste.p8
+
+game:					Celeste Classic 2
+developer:		Maddy Makes Games
+publisher:		Maddy Makes Games
+genres:				Platformer
+rating:				69%
+players:			1
+summary:			A PICO-8 platformer about hiking around a mountain, made in three days.
+description:	A PICO-8 platformer about hiking around a mountain, made in three days for Celeste's third anniversary.
+file:					celeste2.p8
