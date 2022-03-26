@@ -52,11 +52,20 @@ noremap <C-S-Tab> :BufferPrevious<CR>
 " /\ moved to PLUGINS - not jrnl.sh
 " }}}
 
+
+
 " CUSTOM COMMANDS {{{
 " https://stackoverflow.com/a/7078429
 cmap w!! w !sudo tee > /dev/null %
 " }}}
 
+lua << EOF
+local opts = { noremap=true, silent=true }
+vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+EOF
 
 " ENSURE VIMPLUG {{{
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -110,6 +119,9 @@ Plug 'sheerun/vim-polyglot', { 'on': [] }
 " the way you'd expect Vim to handle brackets
 Plug 'jiangmiao/auto-pairs', { 'on': [] }
 
+" LSP
+Plug 'neovim/nvim-lspconfig'
+
 " file tree
 "Plug 'preservim/nerdtree'
 Plug 'kyazdani42/nvim-tree.lua' ", { 'on': [] }
@@ -130,12 +142,12 @@ Plug 'rcarriga/nvim-notify'
 " tabs
 Plug 'romgrk/barbar.nvim', { 'on': [] }
 
+" dashboard
+Plug 'glepnir/dashboard-nvim'
+
 " icons :)
 "Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
-
-" dashboard
-Plug 'glepnir/dashboard-nvim'
 
 call plug#end()
 
@@ -264,6 +276,10 @@ require("coq_3p"){
 
   --{ src = "figlet", short_name = "BIG" }
 }
+-- }}}
+
+-- LSP {{{
+require('lspconfig').pyright.setup{}
 -- }}}
 
 -- FILETYPE SETTINGS {{{
