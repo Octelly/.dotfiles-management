@@ -3,6 +3,16 @@ shortname:	Applications
 extensions:	zsh
 launch:			/usr/bin/zsh "{file.path}"
 
+game:					Terminal
+developer:		Various
+publisher:		Various
+genre:				Meta
+rating:				69%
+players:			420
+summary:			A system utility.
+description:  A terminal emulator granting you access to the system shell.
+file: 				terminal.zsh
+
 game:					Steam
 developer:		Valve
 publisher:		Valve
