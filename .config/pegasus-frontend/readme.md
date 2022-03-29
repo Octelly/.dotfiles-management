@@ -1,5 +1,7 @@
 # Pegasus + game console scripts
 
+![](./readme-assets/pegasus1.png)
+
 This folder contains most of the scripts relating to my DIY living room retro console / media PC.
 
 ## bspwmrc & setting up autostart
@@ -25,11 +27,11 @@ FIXME: improve wording
 These entries will (with these dotfiles) appear in Pegasus no matter if they're installed or not.
 
 - Applications
-	- Steam (``multilib/steam``)
-		- check Arch wiki for dependencies
-	- Terminal (any of the following will work)
-		-  kitty (``community/kitty``)
-	  -  roxterm
+  - Steam (``multilib/steam``)
+    - check Arch wiki for dependencies
+  - Terminal (any of the following will work) (list based off of QTile's ``guess_terminal`` function)
+    -  kitty (``community/kitty``)
+    -  roxterm
     -  sakura
     -  hyper
     -  alacritty
@@ -48,11 +50,11 @@ These entries will (with these dotfiles) appear in Pegasus no matter if they're 
     -  urxvt
     -  xterm
     -  x-terminal-emulator
-- "DRM-free" (non-emulation games without a launcher or separate category)
+- "DRM-free" (non-emulation games without a launcher or separate category) ![](./readme-assets/pegasus-drm-free.png)
 	- Sonic Robo Blast 2 Kart (``aur/srb2kart``)
 	- TETR.IO (``aur/tetrio-desktop``)
 - Media
 	- Jellyfin Media Player (``aur/jellyfin-media-player``)
 	- YouTube TV (``aur/youtube-tv-git``)
 
-Special config in ``~/.lexaloffle/pico-8/carts/`` for Splore.
+Special config in ``~/.lexaloffle/pico-8/carts/`` for Splore. ![](./readme-assets/pegasus-splore.png)
