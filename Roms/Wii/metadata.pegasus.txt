@@ -1,6 +1,6 @@
 collection:	Wii
 shortname:	Wii
-extensions: iso, wbfs
+extensions: iso, wbfs, wad
 launch:			/usr/bin/dolphin-emu -b -c -e "{file.path}"
 
 game:					Mario Kart Wii (USA)
