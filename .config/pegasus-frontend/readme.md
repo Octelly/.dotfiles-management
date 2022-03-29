@@ -50,7 +50,8 @@ These entries will (with these dotfiles) appear in Pegasus no matter if they're 
     -  urxvt
     -  xterm
     -  x-terminal-emulator
-- "DRM-free" (non-emulation games without a launcher or separate category) ![](./readme-assets/pegasus-drm-free.png)
+- "DRM-free" (non-emulation games without a launcher or separate category)
+  ![](./readme-assets/pegasus-drm-free.png)
 	- Sonic Robo Blast 2 Kart (``aur/srb2kart``)
 	- TETR.IO (``aur/tetrio-desktop``)
 - Media
