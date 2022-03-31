@@ -89,10 +89,19 @@ let g:coq_settings = {
     \ "third_party.enabled": v:true
   \ },
   \ "limits.completion_auto_timeout": 10,
-  \ "match.max_results": 20
+  \ "match.max_results": 20,
+  \ "keymap": {
+    \ "manual_complete": ""
+  \ }
 \ }
 let g:Hexokinase_highlighters = [ 'background' ]
 let g:dashboard_default_executive = 'telescope'
+
+" Limelight Goyo integration
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+let g:limelight_conceal_guifg = '#848089'
 " }}}
 
 " PLUGINS {{{
@@ -115,6 +124,13 @@ Plug 'feline-nvim/feline.nvim'
 
 " language pack
 Plug 'sheerun/vim-polyglot', { 'on': [] }
+
+" markdown preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+" distraction-free writing
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 " the way you'd expect Vim to handle brackets
 Plug 'jiangmiao/auto-pairs', { 'on': [] }
@@ -169,6 +185,9 @@ augroup filetype_jrnl
         \ 'auto-pairs',
         \ 'barbar.nvim',
         \)|noremap <C-b> :NvimTreeToggle<CR>|endif
+  autocmd filetype jrnl.sh set syntax=markdown
+  autocmd filetype jrnl.sh set wrap
+  autocmd filetype jrnl.sh set linebreak
 augroup END
 " }}}
 
@@ -280,6 +299,7 @@ require("coq_3p"){
 
 -- LSP {{{
 require('lspconfig').pyright.setup{}
+require('lspconfig').sumneko_lua.setup{}
 -- }}}
 
 -- FILETYPE SETTINGS {{{
