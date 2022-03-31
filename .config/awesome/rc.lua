@@ -33,7 +33,6 @@ local keyboard_layout = require("keyboard_layout")  -- Repo: https://github.com/
                                                     -- Keyboard switcher for Awesome WM with additional
                                                     -- layouts
 
-                                                    
 -- ERROR HANDLING --
 
 -- this should only execute for fallback config (useless here?)
@@ -72,7 +71,7 @@ bling.widget.tag_preview.enable {
     scale = 0.25,                 -- The scale of the previews compared to the screen
     honor_padding = false,        -- Honor padding when creating widget size
     honor_workarea = false        -- Honor work area when creating widget size
-}   
+}
 
 -- initialise nice addon
 --nice {
