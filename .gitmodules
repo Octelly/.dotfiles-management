@@ -26,3 +26,6 @@
 [submodule ".config/pegasus-frontend/themes/gameOS"]
 	path = .config/pegasus-frontend/themes/gameOS
 	url = git@github.com:PlayingKarrde/gameOS.git
+[submodule ".config/awesome/bling"]
+	path = .config/awesome/bling
+	url = git@github.com:BlingCorp/bling.git
