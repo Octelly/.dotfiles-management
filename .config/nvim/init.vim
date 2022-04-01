@@ -59,13 +59,6 @@ noremap <C-S-Tab> :BufferPrevious<CR>
 cmap w!! w !sudo tee > /dev/null %
 " }}}
 
-lua << EOF
-local opts = { noremap=true, silent=true }
-vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-EOF
 
 " ENSURE VIMPLUG {{{
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -113,7 +106,8 @@ Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 
 " highlight colour codes
-Plug 'rrethy/vim-hexokinase', { 'do': 'make', 'on': [] }
+" Plug 'rrethy/vim-hexokinase', { 'do': 'make'}
+Plug 'norcalli/nvim-colorizer.lua'
 
 " let the FBI spy on me
 Plug 'wakatime/vim-wakatime', { 'on': [] }
@@ -135,8 +129,15 @@ Plug 'junegunn/limelight.vim'
 " the way you'd expect Vim to handle brackets
 Plug 'jiangmiao/auto-pairs', { 'on': [] }
 
+" indent hints
+Plug 'lukas-reineke/indent-blankline.nvim'
+
 " LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'ray-x/lsp_signature.nvim'
+
+" tree sitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " file tree
 "Plug 'preservim/nerdtree'
@@ -179,7 +180,6 @@ augroup filetype_jrnl
   "       \)|lua require('nvim-tree').setup()
   "       \|endif
   autocmd filetype * if &ft!="jrnl.sh"|call plug#load(
-        \ 'vim-hexokinase',
         \ 'vim-wakatime',
         \ 'vim-polyglot',
         \ 'auto-pairs',
@@ -298,8 +298,26 @@ require("coq_3p"){
 -- }}}
 
 -- LSP {{{
-require('lspconfig').pyright.setup{}
-require('lspconfig').sumneko_lua.setup{}
+local opts = { noremap=true, silent=true }
+
+local on_attach = function(client, bufnr)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+end
+
+local servers = {
+  'pyright',
+  'sumneko_lua',
+  'rust_analyzer'
+}
+
+for _, lsp in pairs(servers) do
+  require('lspconfig')[lsp].setup {
+    on_attach = on_attach
+  }
+end
 -- }}}
 
 -- FILETYPE SETTINGS {{{
@@ -320,5 +338,42 @@ vim.notify = require("notify")
 require('nvim-web-devicons').setup{default = true}
 require('which-key').setup()
 require('nvim-tree').setup()
---- }}}
+require('colorizer').setup()
+require('lsp_signature').setup{}
+
+vim.opt.list = true
+vim.opt.listchars:append("eol:↴")
+
+require("indent_blankline").setup {
+    show_end_of_line = true,
+}
+
+require("nvim-treesitter.configs").setup {
+  -- One of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = "maintained",
+
+  -- Install languages synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- List of parsers to ignore installing
+  --ignore_install = { "javascript" },
+
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = true,
+
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+    -- the name of the parser)
+    -- list of language that will be disabled
+    -- disable = { "c", "rust" },
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+-- }}}
 EOF
