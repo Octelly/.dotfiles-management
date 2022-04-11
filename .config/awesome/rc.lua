@@ -818,4 +818,4 @@ gears.timer{
 --     end
 -- }
 
-awful.util.spawn_with_shell("./autostart.zsh")
+awful.util.spawn_with_shell(gears.filesystem.get_configuration_dir().."autostart.zsh")
