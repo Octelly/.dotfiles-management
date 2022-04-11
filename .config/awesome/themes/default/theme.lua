@@ -137,7 +137,13 @@ theme.tooltip_shape = gsh.rounded_bar
 
 
 --theme.wibar_shape   = gsh.rounded_bar
-theme.wibar_margins = 5
+theme.wibar_margins = {
+    top   = 5,
+    left  = 5,
+    right = 5,
+
+    bottom = 0
+}
 
 theme.hotkeys_bg = theme.bg_normal
 theme.hotkeys_fg = clr_white
