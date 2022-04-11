@@ -1,13 +1,20 @@
-#!/usr/bin/zsh
+#!/usr/bin/env bash
+
+function run {
+  if ! pgrep -f "$1" ;
+  then
+    $@&
+  fi
+}
 
 #wired -r & disown
-/usr/bin/dunst & disown
-/usr/lib/policykit-1-pantheon/io.elementary.desktop.agent-polkit & disown
+run "/usr/bin/dunst"
+run "/usr/lib/policykit-1-pantheon/io.elementary.desktop.agent-polkit"
 
-blueberry-tray
-pasystray & disown
-nm-applet & disown
-clight-gui --tray & disown
+run "blueberry-tray"
+run "pasystray"
+run "nm-applet"
+run "clight-gui --tray"
 
-picom --experimental-backends --config /home/ocean/.config/awesome/picom/picom.conf & disown
-nitrogen --set-zoom-fill ~/Wallpapers/16-9/wallhaven-rdz76w-cropped.png
+run "picom --experimental-backends --config /home/ocean/.config/awesome/picom/picom.conf"
+#nitrogen --set-zoom-fill ~/Wallpapers/16-9/wallhaven-rdz76w-cropped.png

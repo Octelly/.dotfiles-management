@@ -62,3 +62,6 @@ def tick():
         subprocess.Popen(['notify-send', '-u', 'low', '-t', '17000', '{}:00'.format(localtime_tuple.tm_hour), random.choice(awake_comment[localtime_tuple.tm_hour])], stdout=subprocess.DEVNULL)
 
     return localtime_tuple.tm_sec
+
+if __name__ == "__main__":
+    print(tick())

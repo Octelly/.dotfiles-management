@@ -52,7 +52,8 @@ keys = [
     # Program shortcuts
     # FIXME: add the rest
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    Key([mod], "f", lazy.spawn('nautilus -w'), desc="Launch file manager"),
+    # Key([mod], "f", lazy.spawn('nautilus -w'), desc="Launch file manager"),
+    Key([mod], "f", lazy.spawn('dolphin --new-window'), desc="Launch file manager"),
 
     Key([mod], "r", rofi_action, desc="Spawn Rofi"),
     Key([], "XF86Search", rofi_action, desc="Spawn Rofi"),
@@ -148,7 +149,7 @@ layouts = [
     layout.Columns(
         border_focus_stack='#d75f5f',
         margin=5,
-        
+
         border_normal="#2d2a2e",
         border_focus="#f85e84",
 
@@ -157,7 +158,15 @@ layouts = [
     layout.Max(margin=5),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
+    # layout.Bsp(
+    #     border_focus_stack='#d75f5f',
+    #     margin=5,
+    #
+    #     border_normal="#2d2a2e",
+    #     border_focus="#f85e84",
+    #
+    #     border_width=2,
+    # ),
     # layout.Matrix(),
     # layout.MonadTall(),
     # layout.MonadWide(),

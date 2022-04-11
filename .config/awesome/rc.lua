@@ -1,27 +1,35 @@
 -- LuaRocks packages loading if available
 pcall(require, "luarocks.loader")
+-- WARNING:
+-- required luarocks packages:
+--- lcpz/awesome-freedesktop
 
 
 -- STANDARD AWESOME LIBRARY --
 
-local gears = require("gears")                        -- utilities
-local awful = require("awful")                        -- window management
-local wibox = require("wibox")                        -- widgets
-local beautiful = require("beautiful")                -- themes
-local naughty = require("naughty")                    -- notifications
-local menubar = require("menubar")                    -- XDG (application) menu implementation - FIXME: probably useless
-local hotkeys_popup = require("awful.hotkeys_popup")  -- hotkeys cheatsheet
 
-require("awful.hotkeys_popup.keys")  -- dynamic hotkeys cheatsheet library
-                                     -- (might not be relevant to custom config)
-                                     -- (firefox, qutebrowser, termite, tmux, vim)
+local gears = require("gears")                          -- utilities
+local awful = require("awful")                          -- window management
+require("awful.autofocus")                              --- automatic focusing on client change etc.
+local hotkeys_popup = require("awful.hotkeys_popup")    --- hotkeys cheatsheet
+require("awful.hotkeys_popup.keys")                     --- dynamic hotkeys cheatsheet library
+                                                        ---- (might not be relevant to custom config)
+                                                        ---- (firefox, qutebrowser, termite, tmux, vim)
+local wibox = require("wibox")                          -- widgets
+local beautiful = require("beautiful")                  -- themes
+local naughty = require("naughty")                      -- notifications
+local ruled = require("ruled")                          -- client rules
+local menubar = require("menubar")                      -- XDG (application) menu implementation - FIXME: probably useless
+
 
 -- Load Debian menu entries - FIXME: probably useless (also not cross-distro compatible)
 --local debian = require("debian.menu")
---local has_fdo, freedesktop = pcall(require, "freedesktop")
+--local freedesktop = require("freedesktop")
+
+local json = require("external/json_lua/json")
 
 
--- ADDONS --
+-- ADDONS {{{
 
 --local nice = require("nice")  -- Repo: https://github.com/mut-ex/awesome-wm-nice
                               -- An Awesome WM module that add MacOS-like
@@ -33,45 +41,63 @@ local keyboard_layout = require("keyboard_layout")  -- Repo: https://github.com/
                                                     -- Keyboard switcher for Awesome WM with additional
                                                     -- layouts
 
--- ERROR HANDLING --
+-- }}}
 
--- this should only execute for fallback config (useless here?)
-if awesome.startup_errors then
-    naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })
-end
+-- ERROR HANDLING {{{
 
--- runtime errors
-do
-    local in_error = false
-    awesome.connect_signal("debug::error", function (err)
-        -- Make sure we don't go into an endless error loop
-        if in_error then return end
-        in_error = true
+-- Check if awesome encountered an error during startup and fell back to
+-- another config (This code will only ever execute for the fallback config)
+naughty.connect_signal("request::display_error", function(message, startup)
+    naughty.notification {
+        urgency = "critical",
+        title   = "Oops, an error happened"..(startup and " during startup!" or "!"),
+        message = message
+    }
+end)
 
-        naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, an error happened!",
-                         text = tostring(err) })
-        in_error = false
-    end)
-end
+-- OLD {{{
 
--- VARIABLES --
+-- -- this should only execute for fallback config (useless here?)
+-- if awesome.startup_errors then
+--     naughty.notify({ preset = naughty.config.presets.critical,
+--                      title = "Oops, there were errors during startup!",
+--                      text = awesome.startup_errors })
+-- end
+-- 
+-- -- runtime errors
+-- do
+--     local in_error = false
+--     awesome.connect_signal("debug::error", function (err)
+--         -- Make sure we don't go into an endless error loop
+--         if in_error then return end
+--         in_error = true
+-- 
+--         naughty.notify({ preset = naughty.config.presets.critical,
+--                          title = "Oops, an error happened!",
+--                          text = tostring(err) })
+--         in_error = false
+--     end)
+-- end
+
+-- }}}
+
+-- }}}
+
+-- VARIABLES {{{
 
 -- load theme
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/default/theme.lua")
 
-local bling = require("bling")
-
-bling.widget.tag_preview.enable {
-    show_client_content = false,  -- Whether or not to show the client content
-    x = 10,                       -- The x-coord of the popup
-    y = 10,                       -- The y-coord of the popup
-    scale = 0.25,                 -- The scale of the previews compared to the screen
-    honor_padding = false,        -- Honor padding when creating widget size
-    honor_workarea = false        -- Honor work area when creating widget size
-}
+-- local bling = require("bling")
+--
+-- bling.widget.tag_preview.enable {
+--     show_client_content = false,  -- Whether or not to show the client content
+--     x = 10,                       -- The x-coord of the popup
+--     y = 10,                       -- The y-coord of the popup
+--     scale = 0.25,                 -- The scale of the previews compared to the screen
+--     honor_padding = false,        -- Honor padding when creating widget size
+--     honor_workarea = false        -- Honor work area when creating widget size
+-- }
 
 -- initialise nice addon
 --nice {
@@ -94,7 +120,10 @@ bling.widget.tag_preview.enable {
 
 
 -- keyboard layouts
-local kbdcfg = keyboard_layout.kbdcfg({type = "tui"})
+local kbdcfg = keyboard_layout.kbdcfg({
+    type = "tui",
+    no_tui_margin = true
+})
 
 kbdcfg.add_primary_layout("English (US)", "EN", "us")
 kbdcfg.add_primary_layout("Czech (QWERTY)", "CZ", "cz(qwerty)")
@@ -106,7 +135,10 @@ kbdcfg.bind()
 --terminal = "x-terminal-emulator"
 terminal = "kitty"
 --terminal = "/usr/bin/zsh /home/ocean/Scripts/big_funny.sh"
-editor = os.getenv("EDITOR") or "editor"
+
+--editor = os.getenv("EDITOR") or "editor"
+editor = "nvim"
+
 editor_cmd = terminal .. " -e " .. editor
 
 
@@ -117,10 +149,50 @@ editor_cmd = terminal .. " -e " .. editor
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
 
+-- }}}
+
+-- MENU {{{
+
+myawesomemenu = {
+   { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+   { "manual", terminal .. " -e man awesome" },
+   { "edit config", editor_cmd .. " " .. awesome.conffile },
+   { "restart", awesome.restart },
+   { "quit 👋❤️", function() awesome.quit() end },
+}
+
+local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
+local menu_terminal = { "open terminal", terminal }
+
+
+--if has_fdo then
+--mymainmenu = freedesktop.menu.build({
+--    before = { menu_awesome },
+--    after =  { menu_terminal }
+--})
+--else
+mymainmenu = awful.menu({
+    items = {
+              menu_awesome,
+              --{ "Debian", debian.menu.Debian_menu.Debian },
+              menu_terminal,
+            }
+})
+--end
+
+
+mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+                                     menu = mymainmenu })
+
+-- Menubar configuration
+menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+
+-- }}}
+
+-- LAYOUTS {{{
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    --awful.layout.suit.floating,
     awful.layout.suit.tile,
     --awful.layout.suit.tile.left,
     --awful.layout.suit.tile.bottom,
@@ -136,49 +208,37 @@ awful.layout.layouts = {
     --awful.layout.suit.corner.ne,
     --awful.layout.suit.corner.sw,
     --awful.layout.suit.corner.se,
+    awful.layout.suit.floating,
 }
 
-beautiful.useless_gap = 5
+-- beautiful.useless_gap = 5
 
--- MENU --
-
-myawesomemenu = {
-   { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit 👋❤️", function() awesome.quit() end },
-}
-
-local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
-local menu_terminal = { "open terminal", terminal }
-
-
-if has_fdo then
-    mymainmenu = freedesktop.menu.build({
-        before = { menu_awesome },
-        after =  { menu_terminal }
-    })
-else
-    mymainmenu = awful.menu({
-        items = {
-                  menu_awesome,
-                  --{ "Debian", debian.menu.Debian_menu.Debian },
-                  menu_terminal,
-                }
-    })
-end
-
-
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
-
--- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
+-- WALLPAPER {{{
+screen.connect_signal("request::wallpaper", function(s)
+    awful.wallpaper {
+        screen = s,
+        widget = {
+            {
+                image     = beautiful.wallpaper,
+                upscale   = true,
+                downscale = true,
+                widget    = wibox.widget.imagebox,
+            },
+            valign = "center",
+            halign = "center",
+            tiled  = false,
+            widget = wibox.container.tile,
+        }
+    }
+end)
+-- }}}
 
--- WIBAR (WIDGET BAR) --
+-- WIBAR (WIDGET BAR) {{{
+
+-- NOTE:
+-- keyboardlayout stuff defined in VARIABLES section
 
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock("%H:%M:%S|%A %d.%m.|%b %Y", 1)
@@ -223,24 +283,72 @@ local tasklist_buttons = gears.table.join(
                                               awful.client.focus.byidx(-1)
                                           end))
 
-local function set_wallpaper(s)
-    -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    end
-end
+-- local function set_wallpaper(s)
+--     -- Wallpaper
+--     if beautiful.wallpaper then
+--         local wallpaper = beautiful.wallpaper
+--         -- If wallpaper is a function, call it with the screen
+--         if type(wallpaper) == "function" then
+--             wallpaper = wallpaper(s)
+--         end
+--         gears.wallpaper.maximized(wallpaper, s, true)
+--     end
+-- end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
+-- screen.connect_signal("property::geometry", set_wallpaper)
+
+local function powerline(widget, bg, fg, additional_margin)
+    additional_margin = additional_margin or 0
+    return {
+        {
+            {
+                widget,
+                widget = wibox.container.place  -- (vertical) align
+            },
+            left  = 12 + additional_margin,
+            right = 12 + additional_margin,
+            color = bg,
+            widget = wibox.container.margin,    -- add margin that will be
+                                                -- cut into powerline shape
+        },
+        fg = fg,
+        bg = bg,
+        shape = function(cr, width, height)     -- cut
+            return gears.shape.parallelogram(cr, width, height, width-12)
+        end,
+        widget = wibox.container.background     -- NOTE:
+                                                -- widgets wrapped liked this
+                                                -- need to have negative spacing
+                                                -- set up
+                                                -- setting it to precisely -12 px
+                                                -- however leaves thin lines of the
+                                                -- bg colour sticking through
+                                                -- however, something like -13 does
+                                                -- the job better
+    }
+end
+
+local function static_text(text)
+    return {
+        text = text,
+        widget = wibox.widget.textbox
+    }
+end
+
+local function combine(widgets)
+    local array = {
+        layout = wibox.layout.fixed.horizontal
+    }
+    for _, widget in ipairs(widgets) do
+        table.insert(array, widget)
+    end
+    return array
+end
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
-    set_wallpaper(s)
+    -- set_wallpaper(s)
 
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
@@ -271,28 +379,52 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
-
-    -- Add widgets to the wibox
-    s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            mylauncher,
-            s.mytaglist,
-            s.mypromptbox,
-        },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            kbdcfg.widget,
-            wibox.widget.systray(),
-            mytextclock,
-            s.mylayoutbox,
-        },
+    s.mywibox = awful.wibar{
+        position = "top",
+        screen   = s,
+        widget   = {
+            layout = wibox.layout.align.horizontal,
+            { -- Left widgets
+                layout = wibox.layout.fixed.horizontal,
+                {
+                    mylauncher,
+                    margins = 1.5,
+                    widget = wibox.container.margin
+                },
+                s.mytaglist,
+                s.mypromptbox,
+            },
+            s.mytasklist, -- Middle widget
+            { -- Right widgets
+                layout = wibox.layout.fixed.horizontal,
+                spacing = -13,
+                powerline(static_text("ahoj Kati :)"),                 "#78dce8", "#1a181a"),
+                powerline(static_text("emi 🥺"),                       "#f85e84", "#e3e1e4"),
+                powerline(combine({static_text(" "), kbdcfg.widget}), "#e3e1e4", "#1a181a", 3),
+                powerline({
+                    base_size = 20,
+                    widget = wibox.widget.systray()
+                },                                                     "#49464e", "#e3e1e4"),
+                powerline(combine({
+                    awful.widget.watch('cat /sys/class/power_supply/BAT1/capacity'),
+                    static_text('% '),
+                    awful.widget.watch('cat /sys/class/power_supply/BAT0/capacity'),
+                    static_text('%'), -- FIXME: not a widget without this (wtf?)
+                }),                                                    "#9ecd6f", "#1a181a", 3),
+                powerline(mytextclock,                                 "#e5c463", "#1a181a"),
+                {
+                    powerline(s.mylayoutbox,                           "#1a181a", "#e3e1e4"),
+                    right = -12,
+                    widget = wibox.container.margin
+                }
+            },
+        }
     }
 end)
 
+-- }}}
+
+-- BINDINGS {{{
 
 -- MOUSE BINDINGS --
 
@@ -303,17 +435,35 @@ root.buttons(require("binds.globalbuttons")())
 --clientbuttons = require('binds.clientbuttons')()
 
 -- KEY BINDINGS --
-globalkeys = gears.table.join(
+-- globalkeys = gears.table.join(
+awful.keyboard.append_global_keybindings({
 
     -- hotkeys cheatsheet
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    
+
+    -- debug
+    awful.key({ modkey }, "x",
+              function ()
+                  awful.prompt.run {
+                    prompt       = "Run Lua code: ",
+                    textbox      = awful.screen.focused().mypromptbox.widget,
+                    exe_callback = awful.util.eval,
+                    history_path = awful.util.get_cache_dir() .. "/history_eval"
+                  }
+              end,
+              {description = "lua execute prompt", group = "awesome"}),
+
     -- change tag
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
               {description = "view next", group = "tag"}),
+
+    awful.key({ modkey }, "h", function ()
+        mouse.screen.mywibox.visible = not mouse.screen.mywibox.visible
+    end,
+    {description = "hide top bar", group = "awesome"}),
 
     -- client focus switch
     awful.key({ "Mod1",           }, "Tab",
@@ -330,14 +480,14 @@ globalkeys = gears.table.join(
     ),
 
     -- focus urgent client
-    awful.key({ "Mod1", "Control"   }, "Tab", awful.client.urgent.jumpto,
-              {description = "jump to urgent client", group = "client"}),
+    -- awful.key({ "Mod1", "Control"   }, "Tab", awful.client.urgent.jumpto,
+    --           {description = "jump to urgent client", group = "client"}),
 
     -- screen focus switch
-    awful.key({ modkey,           }, "Tab", function () awful.screen.focus_relative( 1) end,
-              {description = "focus the next screen", group = "screen"}),
-    awful.key({ modkey, "Shift"   }, "Tab", function () awful.screen.focus_relative(-1) end,
-              {description = "focus the previous screen", group = "screen"}),
+    -- awful.key({ modkey,           }, "Tab", function () awful.screen.focus_relative( 1) end,
+    --           {description = "focus the next screen", group = "screen"}),
+    -- awful.key({ modkey, "Shift"   }, "Tab", function () awful.screen.focus_relative(-1) end,
+    --           {description = "focus the previous screen", group = "screen"}),
 
     -- show main menu
     -- awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
@@ -346,36 +496,63 @@ globalkeys = gears.table.join(
     -- program shortcuts
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
+    -- awful.key({ modkey },            "f",     function () awful.util.spawn_with_shell("nautilus -w") end,
+    --           {description = "open a file manager", group = "launcher"}),
+    awful.key({ modkey },            "f",     function () awful.util.spawn_with_shell("dolphin --new-window") end,
+              {description = "open a file manager", group = "launcher"}),
     awful.key({ modkey },            "r",     function () awful.util.spawn_with_shell("rofi -no-default-config -config " .. gears.filesystem.get_configuration_dir() .. "/rofi/config.rasi -switchers combi,drun,calc -show combi") end,
               {description = "Rofi", group = "launcher"}),
-    awful.key({ modkey },            "l",     function () awful.util.spawn_with_shell("i3lock -i ~/Documents/sesks.png -t") end,
-              {description = "lock", group = "awesome"}),
-    awful.key({ modkey },            "f",     function () awful.util.spawn_with_shell("nautilus") end,
-              {description = "open a file manager", group = "launcher"}),
-    --awful.key({ "Control", "Shift" },            "Print",     function () awful.util.spawn_with_shell("maim -s | xclip -selection clipboard -t image/png") end,
-    --          {description = "selection screenshot", group = "launcher"}),
+    awful.key({  },             "XF86Search", function () awful.util.spawn_with_shell("rofi -no-default-config -config " .. gears.filesystem.get_configuration_dir() .. "/rofi/config.rasi -switchers combi,drun,calc -show combi") end,
+              {description = "Rofi", group = "launcher"}),
+    awful.key({ modkey },           "period", function () awful.util.spawn_with_shell("rofimoji") end,
+              {description = "Emoji picker", group = "launcher"}),
     awful.key({ "Control", "Shift" },            "Print",     function () awful.util.spawn_with_shell("i3-maim-clpimg -s") end,
               {description = "selection screenshot", group = "launcher"}),
     awful.key({ "Control" },            "Print",     function () awful.util.spawn_with_shell("i3-maim-clpimg -f") end,
               {description = "fullscreen screenshot", group = "launcher"}),
-    
+    -- awful.key({ modkey },            "l",     function () awful.util.spawn_with_shell("i3lock -i ~/Documents/sesks.png -t") end,
+    --           {description = "lock", group = "awesome"}),
+    awful.key({ modkey },            "l",     function () awful.util.spawn_with_shell("~/.config/qtile/lock.zsh") end,
+              {description = "lock", group = "awesome"}),
+    --awful.key({ "Control", "Shift" },            "Print",     function () awful.util.spawn_with_shell("maim -s | xclip -selection clipboard -t image/png") end,
+    --          {description = "selection screenshot", group = "launcher"}),
+
+    -- HW control
+    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("busctl call org.clightd.clightd /org/clightd/clightd/Backlight org.clightd.clightd.Backlight RaiseAll \"d(bdu)s\" 0.025 0 0 0 \"\"") end,
+              {description = "brightness up", group = "HW control"}),
+    awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("busctl call org.clightd.clightd /org/clightd/clightd/Backlight org.clightd.clightd.Backlight LowerAll \"d(bdu)s\" 0.025 0 0 0 \"\"") end,
+              {description = "brightness down", group = "HW control"}),
+    awful.key({ }, "XF86AudioMute", function () awful.util.spawn("pamixer -t") end,
+              {description = "toggle out mute", group = "HW control"}),
+    awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("pamixer -i 5") end,
+              {description = "raise volume", group = "HW control"}),
+    awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("pamixer -d 5") end,
+              {description = "lower volume", group = "HW control"}),
+    awful.key({ }, "XF86AudioMicMute", function () awful.util.spawn("pamixer --default-source -t") end,
+              {description = "toggle in mute", group = "HW control"}),
+
     -- awesome control
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
+    awful.key({ "Mod1", "Control" },            "r",     function () awful.util.spawn_with_shell("~/.config/qtile/restart_picom.zsh") end,
+              {description = "restart picom", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 
     -- width change
-    awful.key({ modkey, "Control" }, "Right",     function () awful.tag.incmwfact( 0.05)          end,
-              {description = "increase master width factor", group = "layout"}),
-    awful.key({ modkey, "Control" }, "Left",     function () awful.tag.incmwfact(-0.05)          end,
-              {description = "decrease master width factor", group = "layout"}),
+    -- awful.key({ modkey, "Control" }, "Right",     function () awful.tag.incmwfact( 0.05)          end,
+    --           {description = "increase master width factor", group = "layout"}),
+    -- awful.key({ modkey, "Control" }, "Left",     function () awful.tag.incmwfact(-0.05)          end,
+    --           {description = "decrease master width factor", group = "layout"}),
 
     -- keyboard layouts
     awful.key({ modkey,           }, "space", function () kbdcfg.switch_next()                end,
               {description = "next layout", group = "keyboard"}),
     awful.key({ modkey, "Shift"   }, "space", function () kbdcfg.switch_next()                end,
               {description = "\"previous\" layout", group = "keyboard"}),
+
+    awful.key({ modkey,        }, "Tab", function() awful.layout.inc(1) end,
+              {description = "kuakuhfalifhu", group = "awesome"}),
 
     -- unminimise client
     awful.key({ modkey, "Control" }, "e",
@@ -403,7 +580,7 @@ globalkeys = gears.table.join(
               {description = "forward media", group = "mpris media"}),
     awful.key({ }, "XF86AudioRewind", function () awful.util.spawn("playerctl position 1-") end,
               {description = "rewind media", group = "mpris media"})
-)
+})
 
 
 -- A client keybinding is a shortcut that will get the currently focused client as its first callback argument.
@@ -505,6 +682,8 @@ end
 -- Set keys
 root.keys(globalkeys)
 
+-- }}}
+
 
 -- RULES --
 -- Rules to apply to new clients (through the "manage" signal).
@@ -579,21 +758,64 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 
 -- AUTORUN --
-local run_on_start_up = {
-   "picom --experimental-backends --config " .. gears.filesystem.get_configuration_dir() .. "/picom/picom.conf",
-   "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
-   "/home/ocean/.screenlayout/three.sh",
-   --"plank"
-   -- "nitrogen --random --set-zoom-fill ~/Wallpapers/32-9-sonokai"
+-- local run_on_start_up = {
+--    "picom --experimental-backends --config " .. gears.filesystem.get_configuration_dir() .. "/picom/picom.conf",
+--    "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1",
+--    "/home/ocean/.screenlayout/three.sh",
+--    --"plank"
+--    -- "nitrogen --random --set-zoom-fill ~/Wallpapers/32-9-sonokai"
+-- }
+-- 
+-- -- Run all the apps listed in run_on_start_up
+-- for _, app in ipairs(run_on_start_up) do
+--    local findme = app
+--    local firstspace = app:find(" ")
+--    if firstspace then
+--       findme = app:sub(0, firstspace - 1)
+--    end
+--    -- pipe commands to bash to allow command to be shell agnostic
+--    awful.spawn.with_shell(string.format("echo 'pgrep -u $USER -x %s > /dev/null || (%s)' | bash -", findme, app), false)
+-- end
+
+local existence_reminder_messages_file = io.open(gears.filesystem.get_configuration_dir() .."existence_reminder.json")
+local existence_reminder_messages = json.decode(
+    existence_reminder_messages_file:read("a")
+)
+existence_reminder_messages_file:close()
+
+local function random_choice(list)
+    return list[math.random(#list)]
+end
+
+local function existence_reminder()
+    local date = os.date("*t")
+
+    if date.sec == 0 and date.min == 0 then
+        awful.spawn.with_shell("mpv --no-config --volume=75 --no-video ~/.config/qtile/ac-bell/10spedup.flac > /dev/null")
+        --awful.util.spawn_with_shell("notify-send -u low -t 17000 "..tostring(date.hour)..":00 "..random_choice(existence_reminder_messages[tostring(date.hour)]))
+        naughty.notification({
+            title = tostring(date.hour)..":00",
+            message = random_choice(existence_reminder_messages[tostring(date.hour)]),
+            urgency = "low",
+            timeout = 17
+        })
+    end
+end
+
+gears.timer{
+    timeout = 1,
+    call_now = true,
+    autostart = true,
+    callback = existence_reminder
 }
 
--- Run all the apps listed in run_on_start_up
-for _, app in ipairs(run_on_start_up) do
-   local findme = app
-   local firstspace = app:find(" ")
-   if firstspace then
-      findme = app:sub(0, firstspace - 1)
-   end
-   -- pipe commands to bash to allow command to be shell agnostic
-   awful.spawn.with_shell(string.format("echo 'pgrep -u $USER -x %s > /dev/null || (%s)' | bash -", findme, app), false)
-end
+-- gears.timer{
+--     timeout = 1,
+--     call_now = true,
+--     autostart = true,
+--     callback = function ()
+--         awful.util.spawn_with_shell("python3 ~/.config/qtile/existence_reminder.py")
+--     end
+-- }
+
+awful.util.spawn_with_shell("./autostart.zsh")
