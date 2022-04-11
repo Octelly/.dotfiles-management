@@ -1,0 +1,52 @@
+[CompactMode]
+FontWeight=50
+MaximumTextWidthIndex=1
+PreviewSize=16
+
+[DetailsMode]
+ExpandableFolders=false
+FontWeight=50
+PreviewSize=16
+UseShortRelativeDates=false
+
+[General]
+AutoExpandFolders=true
+BrowseThroughArchives=true
+OpenExternallyCalledFolderInNewTab=false
+RememberOpenedTabs=false
+ShowFullPath=true
+ShowStatusBar=false
+Version=201
+ViewPropsTimestamp=2022,4,2,2,56,1.697
+
+[IconsMode]
+FontWeight=50
+IconSize=112
+MaximumTextLines=1
+PreviewSize=112
+TextWidthIndex=0
+
+[KPropertiesDialog]
+eDP1 Height 1920x1080=438
+eDP1 Width 1920x1080=456
+
+[MainWindow]
+ToolBarsMovable=Disabled
+default Height 1600x900=856
+default Width 1600x900=1590
+default XPosition 1600x900=5
+default YPosition 1600x900=39
+eDP1 Height 1920x1080=1036
+eDP1 Width 1920x1080=1910
+eDP1 XPosition 1920x1080=5
+eDP1 YPosition 1920x1080=39
+
+[PreviewSettings]
+Plugins=appimagethumbnail,audiothumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,opendocumentthumbnail,svgthumbnail,textthumbnail
+
+[Search]
+Location=Everywhere
+
+[ViewPropertiesDialog]
+eDP1 Height 1920x1080=542
+eDP1 Width 1920x1080=444
