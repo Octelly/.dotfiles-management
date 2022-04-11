@@ -31,6 +31,10 @@ eDP1 Height 1920x1080=438
 eDP1 Width 1920x1080=456
 
 [MainWindow]
+DisplayPort-0 HDMI-A-0 Height 1920x1080=1041
+DisplayPort-0 HDMI-A-0 Width 1920x1080=1910
+DisplayPort-0 HDMI-A-0 XPosition 1920x1080=5
+DisplayPort-0 HDMI-A-0 YPosition 1920x1080=34
 ToolBarsMovable=Disabled
 default Height 1600x900=856
 default Width 1600x900=1590
