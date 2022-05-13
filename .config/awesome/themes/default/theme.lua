@@ -46,7 +46,7 @@ theme.border_color_normal = clr_dgray
 --theme.border_color_active = clr_red
 theme.border_color_marked = clr_yellow
 
-theme.fullscreen_hide_border = false
+theme.fullscreen_hide_border = true
 theme.maximized_hide_border = true
 theme.border_color = clr_dgray
 theme.border_color_active = clr_red
