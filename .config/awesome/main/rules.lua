@@ -15,8 +15,9 @@ function _M.get(clientkeys, clientbuttons)
 
         -- All clients will match this rule.
         { rule = { },
-            properties = { border_width = 0,
-                border_color = beautiful.border_normal,
+            properties = {
+                border_width = beautiful.border_width,
+                border_color = beautiful.border_color,
                 focus = awful.client.focus.filter,
                 raise = true,
                 keys = clientkeys,
@@ -24,6 +25,14 @@ function _M.get(clientkeys, clientbuttons)
                 screen = awful.screen.preferred,
                 placement = awful.placement.no_overlap+awful.placement.no_offscreen
             }
+        },
+
+        -- jetbrain bruh
+        {
+            rule = {
+                class = "jetbrains-.*",
+                name = "win.*"
+            }, properties = { titlebars_enabled = false, focusable = false, focus = true, floating = true, placement = awful.placement.restore }
         },
 
         -- Floating clients.

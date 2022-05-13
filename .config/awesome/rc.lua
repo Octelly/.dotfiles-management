@@ -488,6 +488,10 @@ awful.keyboard.append_global_keybindings({
     --           {description = "focus the next screen", group = "screen"}),
     -- awful.key({ modkey, "Shift"   }, "Tab", function () awful.screen.focus_relative(-1) end,
     --           {description = "focus the previous screen", group = "screen"}),
+     awful.key({ modkey,           }, "#34", function () awful.screen.focus_relative(-1) end,
+               {description = "focus the previous screen", group = "screen"}),
+     awful.key({ modkey,           }, "#35", function () awful.screen.focus_relative( 1) end,
+               {description = "focus the next screen", group = "screen"}),
 
     -- show main menu
     -- awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
@@ -753,8 +757,10 @@ end)
 --     c:emit_signal("request::activate", "mouse_enter", {raise = false})
 -- end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+-- client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+-- client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c) c.border_color = beautiful.border_color_active end)
+client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_color end)
 
 
 -- AUTORUN --

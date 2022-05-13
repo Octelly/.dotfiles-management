@@ -41,10 +41,16 @@ theme.fg_urgent     = clr_white
 theme.fg_minimize   = clr_bgray
 
 theme.useless_gap         = 2.5
-theme.border_width        = 2
+--theme.border_width        = 2
 theme.border_color_normal = clr_dgray
-theme.border_color_active = clr_red
+--theme.border_color_active = clr_red
 theme.border_color_marked = clr_yellow
+
+theme.fullscreen_hide_border = false
+theme.maximized_hide_border = true
+theme.border_color = clr_dgray
+theme.border_color_active = clr_red
+theme.border_width = 2
 
 -- There are other variable sets
 -- overriding the default one when
