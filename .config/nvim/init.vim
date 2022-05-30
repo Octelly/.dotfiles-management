@@ -118,6 +118,7 @@ Plug 'feline-nvim/feline.nvim'
 
 " language pack
 Plug 'sheerun/vim-polyglot', { 'on': [] }
+Plug 'luizribeiro/vim-cooklang', { 'for': 'cook' }
 
 " markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -349,8 +350,10 @@ require("indent_blankline").setup {
 }
 
 require("nvim-treesitter.configs").setup {
-  -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = "maintained",
+  -- no: One of "all", "maintained" (parsers with maintainers), or a list of languages
+  -- "maintained" deprecated - https://github.com/nvim-treesitter/nvim-treesitter/commit/acd01551a3185118f58f0708b7fffdb2465e39f1
+  --ensure_installed = "maintained",
+  ensure_installed = "all",
 
   -- Install languages synchronously (only applied to `ensure_installed`)
   sync_install = false,
