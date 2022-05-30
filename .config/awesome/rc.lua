@@ -176,6 +176,8 @@ mymainmenu = awful.menu({
               menu_awesome,
               --{ "Debian", debian.menu.Debian_menu.Debian },
               menu_terminal,
+              {"", nil},
+              {"<3", nil}
             }
 })
 --end
