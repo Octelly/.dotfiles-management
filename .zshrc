@@ -168,6 +168,18 @@ function _install_if_unavailable () {
     which "$*" > /dev/null || _auto_install "$*"
 }
 
+function recipe () {
+	if [[ ! -z $* ]] then
+		i_hate_shell_scripting="-q $*"
+	else
+		i_hate_shell_scripting=""
+	fi
+	recipe_name="$(ls "$HOME/Documents/Recipes" | grep ".cook" | sed -e 's/\.cook$//' | fzf $i_hate_shell_scripting --preview-window=wrap --preview 'echo "$HOME/Documents/Recipes/{}.cook" | xargs -r cook recipe read')"
+	if [[ ! -z $recipe_name ]] then
+		nvim $HOME/Documents/Recipes/$recipe_name.cook
+	fi
+}
+
 function people_db () {
 	if [[ $* =~ '-' ]] then
 		echo 'setting up aliases not yet supported'
