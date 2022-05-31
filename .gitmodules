@@ -17,9 +17,6 @@
 	path = .config/awesome/nice
 	url = git@github.com:mut-ex/awesome-wm-nice.git
 	branch = awesome-4v3-stable
-[submodule ".config/awesome/keyboard_layout"]
-	path = .config/awesome/keyboard_layout
-	url = git@github.com:echuraev/keyboard_layout.git
 [submodule ".config/ranger/plugins/ranger_devicons"]
 	path = .config/ranger/plugins/ranger_devicons
 	url = https://github.com/alexanderjeurissen/ranger_devicons
@@ -38,3 +35,6 @@
 [submodule ".config/awesome/external/json_lua"]
 	path = .config/awesome/external/json_lua
 	url = git@github.com:rxi/json.lua.git
+[submodule ".config/awesome/keyboard_layout"]
+	path = .config/awesome/keyboard_layout
+	url = git@github.com:echuraev/keyboard_layout.git

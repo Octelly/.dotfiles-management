@@ -122,7 +122,8 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/default/theme
 -- keyboard layouts
 local kbdcfg = keyboard_layout.kbdcfg({
     type = "tui",
-    no_tui_margin = true
+    tui_wrap_right = "",
+    tui_wrap_left = " "
 })
 
 kbdcfg.add_primary_layout("English (US)", "EN", "us")
@@ -402,7 +403,7 @@ awful.screen.connect_for_each_screen(function(s)
                 spacing = -13,
                 powerline(static_text("ahoj Kati :)"),                 "#78dce8", "#1a181a"),
                 powerline(static_text("emi 🥺"),                       "#f85e84", "#e3e1e4"),
-                powerline(combine({static_text(" "), kbdcfg.widget}), "#e3e1e4", "#1a181a", 3),
+                powerline(kbdcfg.widget, "#e3e1e4", "#1a181a", 3),
                 powerline({
                     base_size = 20,
                     widget = wibox.widget.systray()
