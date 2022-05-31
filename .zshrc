@@ -176,7 +176,22 @@ function recipe () {
 	fi
 	recipe_name="$(ls "$HOME/Documents/Recipes" | grep ".cook" | sed -e 's/\.cook$//' | fzf $i_hate_shell_scripting --preview-window=wrap --preview 'echo "$HOME/Documents/Recipes/{}.cook" | xargs -r cook recipe read')"
 	if [[ ! -z $recipe_name ]] then
-		nvim $HOME/Documents/Recipes/$recipe_name.cook
+		$EDITOR "$HOME/Documents/Recipes/$recipe_name.cook"
+	fi
+}
+
+function mkrecipe () {
+	if [[ -z $* ]] then
+		echo "Recipe name cannot be empty!"
+		return false
+	else
+		if [[ -f "$HOME/Documents/Recipes/$*.cook" ]] then
+			echo "A recipe with that name already exists!"
+			return false
+		else
+			$EDITOR "$HOME/Documents/Recipes/$*.cook"
+			return true
+		fi
 	fi
 }
 
