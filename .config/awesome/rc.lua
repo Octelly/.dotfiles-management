@@ -560,6 +560,8 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({ modkey,        }, "Tab", function() awful.layout.inc(1) end,
               {description = "kuakuhfalifhu", group = "awesome"}),
+    awful.key({ modkey, "Shift"}, "Tab", function() awful.layout.inc(-1) end,
+              {description = "kuakuhfalifhu", group = "awesome"}),
 
     -- unminimise client
     awful.key({ modkey, "Control" }, "e",
