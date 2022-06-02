@@ -192,8 +192,9 @@ theme.titlebar_maximized_button_focus_inactive  = themes_path.."titlebar/maximiz
 theme.titlebar_maximized_button_normal_active = themes_path.."titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = themes_path.."titlebar/maximized_focus_active.png"
 
-theme.wallpaper = themes_path.."wallpaper.png"
+--theme.wallpaper = themes_path.."wallpaper.png"
 --theme.wallpaper = themes_path.."wallpaper2.jpg"
+theme.wallpaper = themes_path.."wallpaper3.jpg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = themes_path.."layouts/fairhw.png"

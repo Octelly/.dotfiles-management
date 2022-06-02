@@ -220,21 +220,30 @@ awful.layout.layouts = {
 
 -- WALLPAPER {{{
 screen.connect_signal("request::wallpaper", function(s)
-    awful.wallpaper {
-        screen = s,
-        widget = {
-            {
-                image     = beautiful.wallpaper,
-                upscale   = true,
-                downscale = true,
-                widget    = wibox.widget.imagebox,
-            },
-            valign = "center",
-            halign = "center",
-            tiled  = false,
-            widget = wibox.container.tile,
-        }
-    }
+    --awful.wallpaper{
+    --    screen = s,
+    --    widget = {
+    --        {
+    --            image     = beautiful.wallpaper,
+    --            upscale   = true,
+    --            downscale = true,
+    --            scaling_quality = "best",
+    --            widget    = wibox.widget.imagebox,
+    --        },
+    --        valign = "center",
+    --        halign = "center",
+    --        tiled  = false,
+    --        widget = wibox.container.tile,
+    --    }
+    --}
+    --gears.wallpaper.maximized{
+    --    surf = beautiful.wallpaper,
+    --    s = s
+    --}  -- DEPRECATED, but the only way to easily do this that I know of
+         -- https://github.com/awesomeWM/awesome/issues/3547
+         --
+         -- FIXME: this doesn't actually work either, check the linked issue
+    awful.spawn.with_shell("nitrogen --set-zoom-fill --head=" .. s.index .. " " .. beautiful.wallpaper)
 end)
 -- }}}
 
