@@ -243,7 +243,7 @@ screen.connect_signal("request::wallpaper", function(s)
          -- https://github.com/awesomeWM/awesome/issues/3547
          --
          -- FIXME: this doesn't actually work either, check the linked issue
-    awful.spawn.with_shell("nitrogen --set-zoom-fill --head=" .. s.index .. " " .. beautiful.wallpaper)
+    awful.spawn.with_shell("nitrogen --set-zoom-fill --head=" .. s.index-1 .. " " .. beautiful.wallpaper)
 end)
 -- }}}
 
