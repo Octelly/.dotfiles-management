@@ -131,8 +131,10 @@ theme.menu_bg_normal = theme.bg_normal
 theme.menu_fg_normal = theme.fg_normal
 theme.menu_bg_focus = theme.bg_normal
 theme.menu_fg_focus = clr_red
-theme.menu_border_width = 5
-theme.menu_border_color = theme.menu_bg_normal
+--theme.menu_border_width = 5
+theme.menu_border_width = 2
+--theme.menu_border_color = theme.menu_bg_normal
+theme.menu_border_color = clr_red
 
 
 theme.tooltip_font = theme.font
