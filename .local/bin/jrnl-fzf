@@ -1,0 +1,94 @@
+#!/usr/bin/env python3
+
+PREVIEW_WIDTH = 77
+
+import subprocess, json, tempfile, os, sys
+
+out = subprocess.check_output(['jrnl', '--format', 'json'])
+
+entries = json.loads(out)
+
+digits_len = len(str(len(entries['entries'])))
+
+fzf_choice = None
+
+with tempfile.TemporaryDirectory() as tmp_dir:
+    with open(os.path.join(tmp_dir, "entry_names"), "w") as f:
+        for i, entry in enumerate(entries['entries'], start=1):
+
+            info_list = []
+
+            info_list.append('{}'.format(str(i).rjust(digits_len, " ")))
+
+            info_list.append(entry['title'])
+
+            if len(entry['tags']) > 0: info_list.append(' '.join(entry['tags']))
+
+            f.write(' | '.join(info_list) + '\n')
+            #f.write('\n'.join(['{number} | {title}'.format(number=str(i).rjust(digits_len, " "), title=x['title']) for i, x in enumerate(entries['entries'], start=1)]))
+
+    entries_dir = os.path.join(tmp_dir, "entries")
+    os.mkdir(entries_dir)
+
+    for i, entry in enumerate(entries['entries']):
+        with open(os.path.join(entries_dir, str(i)), "w") as f:
+
+            info_list = []
+
+            info_list.append(entry['title'])
+            info_list.append('   '+' '.join([entry['date'], entry['time']]))
+            if len(entry['tags']) > 0: info_list.append('tags:'+' '.join(entry['tags']).center(PREVIEW_WIDTH-len('tags:'), ' '))
+            info_list.append('-'*PREVIEW_WIDTH)
+            info_list.append(entry['body'])
+
+
+            f.write('\n'.join(info_list))
+    
+    fzf_command = ['fzf']
+
+    # make search not case-sensitive
+    fzf_command.append('-i')
+
+    # forward command line search
+    if len(sys.argv) > 1:
+        fzf_command.append('-q')
+        fzf_command.append(' '.join(sys.argv[1:]))
+        fzf_command.append('-1')  # automatically choose if only one match
+        fzf_command.append('-0')  # automatically close if no match
+
+    # same order as jrnl
+    #fzf_command.append('--no-sort')
+    fzf_command.append('--tac')
+
+    # wrap top/bottom
+    fzf_command.append('--cycle')
+
+    # imitate jrnl's default formatting
+    fzf_command.append('--preview-window=right,' + str(PREVIEW_WIDTH) + ',wrap')
+
+    # preview
+    fzf_command.append('--preview')
+    fzf_command.append('cat ' + entries_dir + '/{n}')
+
+    with open(os.path.join(tmp_dir, "entry_names"), "r") as f:
+        fzf_choice = subprocess.run(
+            fzf_command,
+            stdin=f,
+            stdout=subprocess.PIPE
+        )
+
+match fzf_choice.returncode:
+    case 0:
+        fzf_index = int(fzf_choice.stdout.decode().split('|')[0].replace(' ', ''))
+        print(fzf_index)
+    case 1:
+        print('no match')
+    case 2:
+        print('fzf errored 😭')
+    case 130:
+        print('interrupted')
+    case _:
+        print('mega bruh 🔊')
+
+
+#print('\n'.join([ x['title'] for x in entries['entries'] ]))
