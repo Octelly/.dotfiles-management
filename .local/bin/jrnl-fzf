@@ -24,6 +24,8 @@ with tempfile.TemporaryDirectory() as tmp_dir:
 
             if len(entry['tags']) > 0: info_list.append(' '.join(entry['tags']))
 
+            #info_list.append(entry['body'].replace('\n', ''))
+
             f.write(' | '.join(info_list) + '\n')
             #f.write('\n'.join(['{number} | {title}'.format(number=str(i).rjust(digits_len, " "), title=x['title']) for i, x in enumerate(entries['entries'], start=1)]))
 
@@ -57,8 +59,10 @@ with tempfile.TemporaryDirectory() as tmp_dir:
         fzf_command.append('-0')  # automatically close if no match
 
     # same order as jrnl
-    #fzf_command.append('--no-sort')
     fzf_command.append('--tac')
+
+    # keep the left visible
+    fzf_command.append('--no-hscroll')
 
     # wrap top/bottom
     fzf_command.append('--cycle')
@@ -77,18 +81,15 @@ with tempfile.TemporaryDirectory() as tmp_dir:
             stdout=subprocess.PIPE
         )
 
-match fzf_choice.returncode:
-    case 0:
-        fzf_index = int(fzf_choice.stdout.decode().split('|')[0].replace(' ', ''))
-        print(fzf_index)
-    case 1:
-        print('no match')
-    case 2:
-        print('fzf errored 😭')
-    case 130:
-        print('interrupted')
-    case _:
-        print('mega bruh 🔊')
-
-
-#print('\n'.join([ x['title'] for x in entries['entries'] ]))
+    match fzf_choice.returncode:
+        case 0:
+            fzf_index = int(fzf_choice.stdout.decode().split('|')[0].replace(' ', '')) - 1
+            subprocess.run(['jrnl', '-on', entries['entries'][fzf_index]['date'] + ' ' + entries['entries'][fzf_index]['time']])
+        case 1:
+            print('no match')
+        case 2:
+            print('fzf errored 😭')
+        case 130:
+            print('interrupted')
+        case _:
+            print('mega bruh 🔊')
