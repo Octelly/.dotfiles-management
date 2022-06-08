@@ -2,11 +2,38 @@
 
 PREVIEW_WIDTH = 77
 
-import subprocess, json, tempfile, os, sys
+import click, subprocess, json, tempfile, os, sys, time
 
+time_start = time.time()
+
+click.echo("[1/8] Requesting jrnl entries - JSON")
 out = subprocess.check_output(['jrnl', '--format', 'json'])
-
+click.echo("[2/8] Parsing JSON")
 entries = json.loads(out)
+
+click.echo("[3/8] Requesting jrnl entries - pretty")
+raw_formatted_entries = subprocess.run(
+    ['jrnl', '-to', 'today', '--format', 'pretty'],
+    stdout=subprocess.PIPE
+).stdout.decode().split('\n\n')
+
+formatted_entries = []
+
+with click.progressbar(raw_formatted_entries,
+        label="[4/8] Reformatting jrnl entries") as bar:
+    for raw_entry in bar:
+        res = raw_entry.split('\n')
+    
+        entry = {'title': '', 'body': ''}
+        
+        i = 0
+        while (i < len(res)) and (not res[i].startswith('| ')):
+            entry['title'] += res[i]
+            i += 1
+    
+        if i <= len(res): entry['body'] = '\n'.join([ line[2:] for line in res[i:] ])
+    
+        formatted_entries.append(entry)
 
 digits_len = len(str(len(entries['entries'])))
 
@@ -14,38 +41,67 @@ fzf_choice = None
 
 with tempfile.TemporaryDirectory() as tmp_dir:
     with open(os.path.join(tmp_dir, "entry_names"), "w") as f:
-        for i, entry in enumerate(entries['entries'], start=1):
+        with click.progressbar(entries['entries'],
+                label="[5/8] Registering entry names") as bar:
+            for i, entry in enumerate(bar, start=1):
 
-            info_list = []
+                info_list = []
 
-            info_list.append('{}'.format(str(i).rjust(digits_len, " ")))
+                info_list.append('{}'.format(str(i).rjust(digits_len, " ")))
 
-            info_list.append(entry['title'])
+                info_list.append(entry['title'])
 
-            if len(entry['tags']) > 0: info_list.append(' '.join(entry['tags']))
+                if len(entry['tags']) > 0: info_list.append(' '.join(entry['tags']))
 
-            #info_list.append(entry['body'].replace('\n', ''))
+                #info_list.append(entry['body'].replace('\n', ''))
+                # NOTE: this had better results sometimes, but made fzf signifficantly
+                #       slower and made narrowing results down much harder
 
-            f.write(' | '.join(info_list) + '\n')
-            #f.write('\n'.join(['{number} | {title}'.format(number=str(i).rjust(digits_len, " "), title=x['title']) for i, x in enumerate(entries['entries'], start=1)]))
+                f.write(' | '.join(info_list) + '\n')
 
     entries_dir = os.path.join(tmp_dir, "entries")
     os.mkdir(entries_dir)
 
-    for i, entry in enumerate(entries['entries']):
-        with open(os.path.join(entries_dir, str(i)), "w") as f:
+    with click.progressbar(entries['entries'],
+                label="[6/8] Registering entry contents") as bar:
+        for i, entry in enumerate(bar):
+            with open(os.path.join(entries_dir, str(i)), "w") as f:
 
-            info_list = []
+                info_list = []
 
-            info_list.append(entry['title'])
-            info_list.append('   '+' '.join([entry['date'], entry['time']]))
-            if len(entry['tags']) > 0: info_list.append('tags:'+' '.join(entry['tags']).center(PREVIEW_WIDTH-len('tags:'), ' '))
-            info_list.append('-'*PREVIEW_WIDTH)
-            info_list.append(entry['body'])
+                #info_list.append(entry['title'])
+                #info_list.append('   '+' '.join([entry['date'], entry['time']]))
+                #if len(entry['tags']) > 0: info_list.append('tags:'+' '.join(entry['tags']).center(PREVIEW_WIDTH-len('tags:'), ' '))
+                # NOTE: old title processing without jrnl pretty formatting
+
+                info_list.append(formatted_entries[i]['title'])
+                if len(entry['tags']) > 0: info_list.append(' '.join(entry['tags']))
+
+                info_list.append('-'*PREVIEW_WIDTH)
+
+                #formatted_body = subprocess.run(
+                #    ['jrnl', '-on',
+                #        entry['date'] + ' ' + entry['time']],
+                #    stdout=subprocess.PIPE
+                #)
+                #info_list.append(formatted_body.stdout.decode())
+                # NOTE: requesting pretty formatting for each entry separately
+                #       was extremely slow
+
+                info_list.append(formatted_entries[i]['body'])
+
+                #info_list.append(entry['body'])
+                # NOTE: old body processing without jrnl pretty formatting
 
 
-            f.write('\n'.join(info_list))
-    
+                f.write('\n'.join(info_list))
+
+    ################################
+    ### CONSTRUCTING FZF COMMAND ###
+    ################################
+
+    click.echo("[7/8] Constructing fzf command")
+
     fzf_command = ['fzf']
 
     # make search not case-sensitive
@@ -74,6 +130,10 @@ with tempfile.TemporaryDirectory() as tmp_dir:
     fzf_command.append('--preview')
     fzf_command.append('cat ' + entries_dir + '/{n}')
 
+    click.echo("[8/8] Running fzf")
+    time_end = time.time()
+    click.echo("[---] Took %gs" % (time_end-time_start))
+
     with open(os.path.join(tmp_dir, "entry_names"), "r") as f:
         fzf_choice = subprocess.run(
             fzf_command,
@@ -84,12 +144,41 @@ with tempfile.TemporaryDirectory() as tmp_dir:
     match fzf_choice.returncode:
         case 0:
             fzf_index = int(fzf_choice.stdout.decode().split('|')[0].replace(' ', '')) - 1
-            jrnl_entry = subprocess.Popen(['jrnl', '-on', entries['entries'][fzf_index]['date'] + ' ' + entries['entries'][fzf_index]['time']], stdout=subprocess.PIPE)
-            subprocess.run(['bat', '-p'], stdin=jrnl_entry.stdout)  # WARNING: FOR FUNNY REASONS, ON DEBIAN IT'S BATCAT
-            jrnl_entry.wait()
+
+            valid_response = False
+            while not valid_response:
+                click.echo('\n'.join([
+                    'Entry options',
+                    ' (v)iew',
+                    ' (e)dit',
+                    ' (c)ancel'
+                    ]))
+
+                valid_response = True
+                
+                match click.getchar():
+                    case 'v':
+                        #jrnl_entry = subprocess.Popen(['jrnl', '-on', entries['entries'][fzf_index]['date'] + ' ' + entries['entries'][fzf_index]['time']], stdout=subprocess.PIPE)
+                        #subprocess.run(['bat', '-p'], stdin=jrnl_entry.stdout)  # WARNING: FOR FUNNY REASONS, ON DEBIAN IT'S BATCAT
+                        #jrnl_entry.wait()
+                        # NOTE: this worked, but requesting jrnl added
+                        #       a noticeable delay, which was completely
+                        #       removed by using cached entries
+
+                        click.echo(raw_formatted_entries[fzf_index])
+                        # FIXME: use BATCAT
+                        #        (batcat uses a pager for longer
+                        #        entries automatically)
+                    case 'e':
+                        subprocess.run(['jrnl', '-on', entries['entries'][fzf_index]['date'] + ' ' + entries['entries'][fzf_index]['time'], '--edit'])
+                    case 'c':
+                        pass
+                    case _:
+                        valid_response = False
+
         case 1:
-            print('no match')
-            print("""
+            click.echo('no match')
+            click.echo("""
      ▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄
      █░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄
     █░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█
@@ -108,8 +197,8 @@ with tempfile.TemporaryDirectory() as tmp_dir:
                     ▀▀▀▀▀▀▀▀
             """)  # WARNING: the trollface is integral to the script working properly
         case 2:
-            print('fzf errored 😭')
+            click.echo('fzf errored 😭')
         case 130:
-            print('interrupted')
+            click.echo('interrupted')
         case _:
-            print('mega bruh 🔊')
+            click.echo('mega bruh 🔊')
