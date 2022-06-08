@@ -4,8 +4,8 @@ journals:
 colors:
   body: none
   date: none
-  tags: cyan
-  title: green
+  tags: yellow
+  title: white
 highlight: true
 
 default_hour: 9
