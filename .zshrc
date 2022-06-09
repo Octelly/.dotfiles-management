@@ -26,7 +26,8 @@ fi
 # - lsd
 alias ls='lsd'
 # - ranger
-alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+#alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+alias ranger='source ranger'
 alias f=ranger
 # - yt-dlp
 alias ytdl-safe="yt-dlp --compat-options youtube-dl"
