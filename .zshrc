@@ -18,9 +18,9 @@ export PATH=$HOME/.cargo/bin:$PATH
 alias cht='cht.sh'
 alias cheat='cht.sh'
 # - bat
-if which bat > /dev/null; then
+if whence bat > /dev/null; then
 	alias cat='bat'
-elif which batcat > /dev/null; then
+elif whence batcat > /dev/null; then
 	alias cat='batcat'
 fi
 # - lsd
@@ -41,7 +41,6 @@ alias ffmpeg='ffmpeg -hide_banner'
 # - fzf
 # - z (zoxide)
 # - duf
-alias legacy-df=$(which df)
 alias df='duf'
 
 
@@ -58,8 +57,10 @@ DISABLE_UPDATE_PROMPT="true"
 DISABLE_LS_COLORS="true"
 
 
-export EDITOR=/usr/bin/nvim
-export editor=/usr/bin/nvim
+export EDITOR=$(whence nvim)
+export editor=$EDITOR
+export VISUAL=$EDITOR
+export PAGER="$(whence bat) --decorations never --paging always"
 
 ## Custom functions and aliases
 
@@ -100,13 +101,16 @@ alias disk='df -h'
 
 alias conf='$EDITOR $HOME/.zshrc'
 
-if which yadm > /dev/null; then
+if whence yadm > /dev/null; then
 	alias config='yadm'
 else
 	alias config='/usr/bin/git --git-dir=$HOME/.dotfiles-management/ --work-tree=$HOME'
 fi
-if which nvim > /dev/null; then
+if whence nvim > /dev/null; then
 	alias vim='nvim'
+fi
+if whence paru > /dev/null; then
+	alias yay='paru'
 fi
 
 zstyle ':autocomplete:*' min-delay 0.1  # float
