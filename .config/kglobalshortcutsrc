@@ -1,0 +1,12 @@
+[ActivityManager]
+_k_friendly_name=Activity Manager
+switch-to-activity-56c749ff-1c47-4822-9045-b93750b8fed0=none,none,Switch to activity "Default"
+
+[org.kde.dolphin.desktop]
+_k_friendly_name=Dolphin
+_launch=
+
+[org.kde.krunner.desktop]
+RunClipboard=Alt+Shift+F2,Alt+Shift+F2,Run command on clipboard contents
+_k_friendly_name=KRunner
+_launch=
