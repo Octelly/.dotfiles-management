@@ -63,15 +63,21 @@ theme.border_width = 2
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
+theme.taglist_bg_empty    = clr_dgray
+theme.taglist_fg_empty    = clr_bgray
+theme.taglist_bg_occupied = clr_dgray
+theme.taglist_fg_occupied = clr_white
+theme.taglist_bg_focus    = clr_black
+theme.taglist_fg_focus    = clr_white
 
 -- Generate taglist squares:
-local taglist_square_size = dpi(4)
-theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
-    taglist_square_size, theme.fg_normal
-)
-theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
-    taglist_square_size, theme.fg_normal
-)
+--local taglist_square_size = dpi(4)
+--theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
+--    taglist_square_size, theme.fg_normal
+--)
+--theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
+--    taglist_square_size, theme.fg_normal
+--)
 
 -- Variables set for theming notifications:
 -- notification_font
