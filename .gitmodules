@@ -38,3 +38,6 @@
 [submodule ".config/awesome/keyboard_layout"]
 	path = .config/awesome/keyboard_layout
 	url = git@github.com:echuraev/keyboard_layout.git
+[submodule ".config/awesome/external/layout-machi"]
+	path = .config/awesome/external/layout-machi
+	url = git@github.com:xinhaoyuan/layout-machi.git
