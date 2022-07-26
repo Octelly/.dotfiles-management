@@ -242,14 +242,11 @@ screen.connect_signal("request::wallpaper", function(s)
     --        widget = wibox.container.tile,
     --    }
     --}
-    --gears.wallpaper.maximized{
-    --    surf = beautiful.wallpaper,
-    --    s = s
-    --}  -- DEPRECATED, but the only way to easily do this that I know of
-         -- https://github.com/awesomeWM/awesome/issues/3547
-         --
-         -- FIXME: this doesn't actually work either, check the linked issue
-    awful.spawn.with_shell("nitrogen --set-zoom-fill --head=" .. s.index-1 .. " " .. beautiful.wallpaper)
+    gears.wallpaper.maximized(
+        beautiful.wallpaper,
+        s
+    )  -- DEPRECATED, but the only way to easily do this that I know of
+       -- https://github.com/awesomeWM/awesome/issues/3547
 end)
 -- }}}
 
