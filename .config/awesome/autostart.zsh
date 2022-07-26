@@ -16,5 +16,7 @@ run "pasystray"
 run "nm-applet"
 run "clight-gui --tray"
 
+#run "light-locker --no-late-locking --no-lock-on-suspend --no-lock-on-lid --no-idle-hint"
+
 run "picom --experimental-backends --config /home/ocean/.config/awesome/picom/picom.conf"
 #nitrogen --set-zoom-fill ~/Wallpapers/16-9/wallhaven-rdz76w-cropped.png
