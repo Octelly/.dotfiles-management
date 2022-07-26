@@ -29,6 +29,9 @@ local menubar = require("menubar")                      -- XDG (application) men
 local json = require("external/json_lua/json")
 
 
+local machi = require("external.layout-machi")
+
+
 -- ADDONS {{{
 
 --local nice = require("nice")  -- Repo: https://github.com/mut-ex/awesome-wm-nice
@@ -87,6 +90,8 @@ end)
 
 -- load theme
 beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/default/theme.lua")
+beautiful.layout_machi = machi.get_icon()
+
 
 -- local bling = require("bling")
 --
@@ -197,9 +202,8 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
+    machi.default_layout,
     --awful.layout.suit.tile.left,
-    --awful.layout.suit.tile.bottom,
-    --awful.layout.suit.tile.top,
     --awful.layout.suit.fair,
     --awful.layout.suit.fair.horizontal,
     --awful.layout.suit.spiral,
@@ -212,6 +216,8 @@ awful.layout.layouts = {
     --awful.layout.suit.corner.sw,
     --awful.layout.suit.corner.se,
     awful.layout.suit.floating,
+    --awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.top,
 }
 
 -- beautiful.useless_gap = 5
@@ -358,6 +364,22 @@ local function combine(widgets)
     return array
 end
 
+-- class, program, name, user_icon, is_steam
+local dock_programs = {
+    { "kitty", "kitty", "Kitty" },
+    { "brave-browser", "brave", "Brave" },
+    { "crx_agimnkijcaahngcdmfeangaknmldooml", "/usr/lib/brave-bin/brave --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml", "YouTube", "/usr/share/icons/WhiteSur-dark/apps/scalable/youtube.svg" },
+    { "discord", "discord", "Discord" },
+    { "Tauon Music Box", "flatpak run com.github.taiko2k.tauonmb", "Tauon Music Box", "/var/lib/flatpak/exports/share/icons/hicolor/scalable/apps/com.github.taiko2k.tauonmb.svg"},
+    { "Spotify", "spotify", "Spotify" },
+    { "easyeffects", "easyeffects", "EasyEffects"},
+    { "dolphin", "dolphin", "Dolphin", "/usr/share/icons/WhiteSur-dark/apps/scalable/org.kde.dolphin.svg" },
+    { "gimp-2.10", "gimp", "GNU Image Manipulation Program" },
+    { "Thunderbird", "flatpak run org.mozilla.Thunderbird", "Thunderbird", "/var/lib/flatpak/exports/share/icons/hicolor/128x128/apps/org.mozilla.Thunderbird.png" },
+    { "barrier", "barrier", "Barrier" },
+    { "polymc", "polymc", "PolyMC", "/usr/share/icons/WhiteSur-dark/apps/scalable/minecraft.svg" }
+}
+
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     -- set_wallpaper(s)
@@ -381,6 +403,7 @@ awful.screen.connect_for_each_screen(function(s)
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
         buttons = taglist_buttons
+
     }
 
     -- Create a tasklist widget
@@ -432,6 +455,8 @@ awful.screen.connect_for_each_screen(function(s)
             },
         }
     }
+
+    require("external.crylia_dock.dock_modified")(s, dock_programs)
 end)
 
 -- }}}
@@ -489,6 +514,13 @@ awful.keyboard.append_global_keybindings({
             awful.client.focus.byidx(-1)
         end,
         {description = "focus previous by index", group = "client"}
+    ),
+
+   awful.key({ modkey,           }, "/",
+        function ()
+            machi.default_editor.start_interactive()
+        end,
+        {description = "edit the current layout if it is a machi layout", group = "layout"}
     ),
 
     -- focus urgent client
