@@ -26,10 +26,13 @@ with click.progressbar(raw_formatted_entries,
     
         entry = {'title': '', 'body': ''}
         
+        title_lines = []
         i = 0
         while (i < len(res)) and (not res[i].startswith('| ')):
-            entry['title'] += res[i]
+            title_lines.append(res[i])
             i += 1
+
+        entry['title'] = ' '.join(title_lines)
     
         if i <= len(res): entry['body'] = '\n'.join([ line[2:] for line in res[i:] ])
     
@@ -124,7 +127,7 @@ with tempfile.TemporaryDirectory() as tmp_dir:
     fzf_command.append('--cycle')
 
     # imitate jrnl's default formatting
-    fzf_command.append('--preview-window=right,' + str(PREVIEW_WIDTH) + ',wrap')
+    fzf_command.append('--preview-window=left,' + str(PREVIEW_WIDTH) + ',wrap')
 
     # preview
     fzf_command.append('--preview')
@@ -148,7 +151,7 @@ with tempfile.TemporaryDirectory() as tmp_dir:
             valid_response = False
             while not valid_response:
                 click.echo('\n'.join([
-                    'Entry options',
+                    formatted_entries[fzf_index]['title'],
                     ' (v)iew',
                     ' (e)dit',
                     ' (c)ancel'
