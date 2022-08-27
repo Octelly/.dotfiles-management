@@ -1,5 +1,13 @@
-/home/ocean/Roms/Wii
 /home/ocean/Roms/PC Engine
+/home/ocean/Roms/GameCube
+/home/ocean/Roms/SNES
+/home/ocean/Roms/Switch
+/home/ocean/Roms/N64
+/home/ocean/Roms/Wii
+/home/ocean/Roms/Wii U
+/home/ocean/Roms/PSP
+/home/ocean/Roms/PS1
+/home/ocean/Roms/PS2
 /home/ocean/.config/pegasus-frontend/collections/DRM-free
 /home/ocean/.config/pegasus-frontend/collections/media
 /home/ocean/.config/pegasus-frontend/collections/applications/
