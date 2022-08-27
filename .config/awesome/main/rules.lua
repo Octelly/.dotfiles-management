@@ -91,12 +91,17 @@ function _M.get(clientkeys, clientbuttons)
         }, properties = { floating = false }
         },
 
-        -- Fix Sonic Generations
+        -- Fix some fullscreen stuff
         { rule_any = {
             class = {
-                "steam_app_71340"
+                "steam_app_71340",  -- Sonic Generations
+                "pegasus-fe",       -- Pegasus Frontend
+                "pegasus-frontend"
             }
-        }, properties = { fullscreen = true }
+        },  properties = {
+                fullscreen = true,
+                maximized = false
+            }
         },
 
         -- Set Firefox to always map on the tag named "2" on screen 1.
