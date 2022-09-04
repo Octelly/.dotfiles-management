@@ -195,7 +195,7 @@ return function(screen, programs)
     screen = screen,
     type = "dock",
     id = "fakedock",
-    height = dpi(10),
+    height = 2.5,
     placement = function(c) awful.placement.bottom(c, { margins = dpi(0) }) end,
   }
 
