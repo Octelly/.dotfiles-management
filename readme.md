@@ -16,6 +16,8 @@ AwesomeWM setup
 ![Final Tauon Music Box screenshot](dotfiles-screenshots/rice1-final-tauon.png)
 Tauon Music Box theme | This one got partially broken by an update, but unlike my Discord theming it is still at least working to some degree.
 
+([if you're wondering about my music taste for some reason](dotfiles-screenshots/special-music_taste.png))
+
 ### other
 
 ![Rofi screenshot](dotfiles-screenshots/rice1-rofi1.png)
