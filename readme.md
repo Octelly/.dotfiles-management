@@ -14,8 +14,7 @@ My startpage is [start.johnystar.moe](https://start.johnystar.moe/). The source 
 AwesomeWM setup
 
 ![Final Tauon Music Box screenshot](dotfiles-screenshots/rice1-final-tauon.png)
-Tauon Music Box theme
-This one got partially broken by an update, but unlike my Discord theming it is still at least working to some degree.
+Tauon Music Box theme | This one got partially broken by an update, but unlike my Discord theming it is still at least working to some degree.
 
 ### other
 
