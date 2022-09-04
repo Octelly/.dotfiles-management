@@ -6,8 +6,19 @@ My startpage is [start.johnystar.moe](https://start.johnystar.moe/). The source 
 
 ## Screenshots
 
-![Qtile, Kitty and ZSH screenshot](dotfiles-screenshots/qtile-kitty-zsh.png)
-Qtile, Kitty and ZSH rice
+### Rice 1
 
-![Rofi screenshot](dotfiles-screenshots/rofi1.png)
+### final
+
+![Final AwesomeWM screenshot](dotfiles-screenshots/rice1-final-awesomewm.png)
+
+![Final Tauon Music Box screenshot](dotfiles-screenshots/rice1-final-tauon.png)
+This one got partially broken by an update, but unlike my Discord theming it is still at least working to some degree.
+
+### other
+
+![Rofi screenshot](dotfiles-screenshots/rice1-rofi1.png)
 Rofi rice
+
+![Qtile, Kitty and ZSH screenshot](dotfiles-screenshots/rice1-qtile-kitty-zsh.png)
+Qtile, Kitty and ZSH rice
