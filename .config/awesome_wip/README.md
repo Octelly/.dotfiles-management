@@ -16,3 +16,10 @@ The general goal is to fix many functional issues of my current setup while also
 Xephyr -br -ac -noreset -screen 1600x900 :2
 DISPLAY=:2 awesome -c rc.lua  # in awesome_wip directory
 ```
+
+## Important goals I don't wanna forget about
+
+- rework keybinds
+  - proper client positioning, resizing etc. with keyboard (see QTile config for inspiration)
+  - make as much stuff as possible operational using only the left hand
+  - rework screenshot keybinds to work without a prtscr key (thank god I can do insert though /s)
