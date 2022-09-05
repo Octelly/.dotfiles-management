@@ -41,3 +41,6 @@
 [submodule ".config/awesome/external/layout-machi"]
 	path = .config/awesome/external/layout-machi
 	url = git@github.com:xinhaoyuan/layout-machi.git
+[submodule ".local/share/awesome-emmylua"]
+	path = .local/share/awesome-emmylua
+	url = https://github.com/awchad/awesome-emmylua
