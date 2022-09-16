@@ -551,10 +551,16 @@ awful.keyboard.append_global_keybindings({
               {description = "Rofi", group = "launcher"}),
     awful.key({ modkey },           "period", function () awful.util.spawn_with_shell("rofimoji") end,
               {description = "Emoji picker", group = "launcher"}),
-    awful.key({ "Control", "Shift" },            "Print",     function () awful.util.spawn_with_shell("i3-maim-clpimg -s") end,
+
+    -- awful.key({ "Control", "Shift" },            "Print",     function () awful.util.spawn_with_shell("i3-maim-clpimg -s") end,
+    --           {description = "selection screenshot", group = "launcher"}),
+    -- awful.key({ "Control" },            "Print",     function () awful.util.spawn_with_shell("i3-maim-clpimg -f") end,
+    --           {description = "fullscreen screenshot", group = "launcher"}),
+    awful.key({ "Control", "Shift" },            "Print",     function () awful.util.spawn_with_shell("flameshot gui -c -p \"$HOME/Pictures/$(date +%s).png\"") end,
               {description = "selection screenshot", group = "launcher"}),
-    awful.key({ "Control" },            "Print",     function () awful.util.spawn_with_shell("i3-maim-clpimg -f") end,
+    awful.key({ "Control" },            "Print",     function () awful.util.spawn_with_shell("flameshot full -c -p \"$HOME/Pictures/$(date +%s).png\"") end,
               {description = "fullscreen screenshot", group = "launcher"}),
+
     -- awful.key({ modkey },            "l",     function () awful.util.spawn_with_shell("i3lock -i ~/Documents/sesks.png -t") end,
     --           {description = "lock", group = "awesome"}),
     awful.key({ modkey },            "l",     function () awful.util.spawn_with_shell("~/.config/qtile/lock.zsh") end,
