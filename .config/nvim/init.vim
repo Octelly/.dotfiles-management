@@ -119,6 +119,7 @@ Plug 'feline-nvim/feline.nvim'
 " language pack
 Plug 'sheerun/vim-polyglot', { 'on': [] }
 Plug 'luizribeiro/vim-cooklang', { 'for': 'cook' }
+Plug 'habamax/vim-godot', { 'for': 'gd' }
 
 " markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -158,7 +159,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'rcarriga/nvim-notify'
 
 " tabs
-Plug 'romgrk/barbar.nvim', { 'on': [] }
+Plug 'romgrk/barbar.nvim'", { 'on': [] }
 
 " dashboard
 Plug 'glepnir/dashboard-nvim'
@@ -311,7 +312,7 @@ end
 local servers = {
   'pyright',
   'sumneko_lua',
-  'rust_analyzer'
+  'rust_analyzer',
 }
 
 for _, lsp in pairs(servers) do
@@ -319,6 +320,13 @@ for _, lsp in pairs(servers) do
     on_attach = on_attach
   }
 end
+
+require('lspconfig').gdscript.setup{
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
 -- }}}
 
 -- FILETYPE SETTINGS {{{
