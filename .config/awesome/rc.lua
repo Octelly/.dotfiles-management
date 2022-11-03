@@ -558,7 +558,11 @@ awful.keyboard.append_global_keybindings({
     --           {description = "fullscreen screenshot", group = "launcher"}),
     awful.key({ "Control", "Shift" },            "Print",     function () awful.util.spawn_with_shell("flameshot gui -c -p \"$HOME/Pictures/$(date +%s).png\"") end,
               {description = "selection screenshot", group = "launcher"}),
+    awful.key({ "Control", "Shift" },            "Insert",     function () awful.util.spawn_with_shell("flameshot gui -c -p \"$HOME/Pictures/$(date +%s).png\"") end,
+              {description = "selection screenshot", group = "launcher"}),
     awful.key({ "Control" },            "Print",     function () awful.util.spawn_with_shell("flameshot full -c -p \"$HOME/Pictures/$(date +%s).png\"") end,
+              {description = "fullscreen screenshot", group = "launcher"}),
+    awful.key({ "Control" },            "Insert",     function () awful.util.spawn_with_shell("flameshot full -c -p \"$HOME/Pictures/$(date +%s).png\"") end,
               {description = "fullscreen screenshot", group = "launcher"}),
 
     -- awful.key({ modkey },            "l",     function () awful.util.spawn_with_shell("i3lock -i ~/Documents/sesks.png -t") end,
