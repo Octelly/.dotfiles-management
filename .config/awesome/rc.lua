@@ -549,7 +549,7 @@ awful.keyboard.append_global_keybindings({
               {description = "Rofi", group = "launcher"}),
     awful.key({  },             "XF86Search", function () awful.util.spawn_with_shell("rofi -no-default-config -config " .. gears.filesystem.get_configuration_dir() .. "/rofi/config.rasi -switchers combi,drun,calc -show combi") end,
               {description = "Rofi", group = "launcher"}),
-    awful.key({ modkey },           "period", function () awful.util.spawn_with_shell("rofimoji") end,
+    awful.key({ modkey },           "period", function () awful.util.spawn_with_shell("rofimoji -f emoji ~/.config/rofimoji/custom.csv") end,
               {description = "Emoji picker", group = "launcher"}),
 
     -- awful.key({ "Control", "Shift" },            "Print",     function () awful.util.spawn_with_shell("i3-maim-clpimg -s") end,

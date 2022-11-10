@@ -3,4 +3,3 @@ prompt = "  "
 skin-tone = neutral
 selector-arg = "-no-default-config -config ~/.config/awesome/rofi/moji.rasi"
 max-recent = 5
-#files = [emojis, currency_symbols, katakana, katakana_phonetic_extensions, hiragana, nerd_font, arrows, dingbats, geometric_shapes_extended, math, mathematical_alphanumeric_symbols, mathematical_operators, chess_symbols, symbols_for_legacy_computing, symbols_and_pictographs_extended-a]
