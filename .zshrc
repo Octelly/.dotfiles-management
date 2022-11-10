@@ -7,6 +7,7 @@ export DEVKITARM=${DEVKITPRO}/devkitARM
 export DEVKITPPC=${DEVKITPRO}/devkitPPC
 
 export PATH=${DEVKITPRO}/tools/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 
 
 export PATH=$HOME/.emacs.d/bin:$PATH
