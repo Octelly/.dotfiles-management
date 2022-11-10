@@ -95,6 +95,7 @@ function _M.get(clientkeys, clientbuttons)
         { rule_any = {
             class = {
                 "steam_app_71340",  -- Sonic Generations
+                "steam_app_331750", -- WALL-E (doesn't fix the thing anw)
                 "pegasus-fe",       -- Pegasus Frontend
                 "pegasus-frontend"
             }
