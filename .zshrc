@@ -104,6 +104,7 @@ alias conf='$EDITOR $HOME/.zshrc'
 
 if whence yadm > /dev/null; then
 	alias config='yadm'
+	alias noyadm='/usr/bin/git --git-dir=$HOME/.dotfiles-management/ --work-tree=$HOME'
 else
 	alias config='/usr/bin/git --git-dir=$HOME/.dotfiles-management/ --work-tree=$HOME'
 fi
@@ -257,7 +258,8 @@ if ! zgen saved; then
 
     # plugins
     zgen load zsh-users/zsh-syntax-highlighting
-    zgen load unixorn/autoupdate-zgen
+    #zgen load unixorn/autoupdate-zgen
+		# FIXME: updating stuff idk
     zgen load chrissicool/zsh-256color
     zgen load supercrabtree/k
     
