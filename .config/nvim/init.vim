@@ -120,6 +120,7 @@ Plug 'feline-nvim/feline.nvim'
 Plug 'sheerun/vim-polyglot', { 'on': [] }
 Plug 'luizribeiro/vim-cooklang', { 'for': 'cook' }
 Plug 'habamax/vim-godot', { 'for': 'gd' }
+Plug 'DaeZak/crafttweaker-vim-highlighting', { 'for': 'zs' }
 
 " markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -159,7 +160,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'rcarriga/nvim-notify'
 
 " tabs
-Plug 'romgrk/barbar.nvim'", { 'on': [] }
+Plug 'romgrk/barbar.nvim'
 
 " dashboard
 Plug 'glepnir/dashboard-nvim'
@@ -172,20 +173,10 @@ call plug#end()
 
 augroup filetype_jrnl
   autocmd!
-  " autocmd filetype * if &ft!="jrnl.sh"|call plug#load(
-  "       \ 'vim-hexokinase',
-  "       \ 'vim-wakatime',
-  "       \ 'vim-polyglot',
-  "       \ 'auto-pairs',
-  "       \ 'nvim-tree.lua',
-  "       \ 'barbar.nvim',
-  "       \)|lua require('nvim-tree').setup()
-  "       \|endif
   autocmd filetype * if &ft!="jrnl.sh"|call plug#load(
         \ 'vim-wakatime',
         \ 'vim-polyglot',
         \ 'auto-pairs',
-        \ 'barbar.nvim',
         \)|noremap <C-b> :NvimTreeToggle<CR>|endif
   autocmd filetype jrnl.sh set syntax=markdown
   autocmd filetype jrnl.sh set wrap
