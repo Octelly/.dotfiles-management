@@ -363,18 +363,18 @@ end
 
 -- class, program, name, user_icon, is_steam
 local dock_programs = {
-    { "kitty", "kitty", "Kitty" },
+    { "kitty", "kitty", "Kitty", "/usr/share/icons/hicolor/scalable/apps/kitty.svg" },
     { "brave-browser", "brave", "Brave" },
     { "crx_agimnkijcaahngcdmfeangaknmldooml", "/usr/lib/brave-bin/brave --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml", "YouTube", "/usr/share/icons/WhiteSur-dark/apps/scalable/youtube.svg" },
-    { "discord", "discord", "Discord" },
+    { "discord", "discord", "Discord", "/usr/share/pixmaps/discord.png" },
     { "Tauon Music Box", "flatpak run com.github.taiko2k.tauonmb", "Tauon Music Box", "/var/lib/flatpak/exports/share/icons/hicolor/scalable/apps/com.github.taiko2k.tauonmb.svg"},
-    { "Spotify", "spotify", "Spotify" },
+    { "Spotify", "spotify", "Spotify", "/usr/share/icons/hicolor/512x512/apps/spotify.png" },
     { "easyeffects", "easyeffects", "EasyEffects"},
     { "dolphin", "dolphin", "Dolphin", "/usr/share/icons/WhiteSur-dark/apps/scalable/org.kde.dolphin.svg" },
-    { "gimp-2.10", "gimp", "GNU Image Manipulation Program" },
+    { "gimp-2.10", "gimp", "GNU Image Manipulation Program", "/usr/share/icons/hicolor/48x48/apps/gimp.png" },
     { "Thunderbird", "flatpak run org.mozilla.Thunderbird", "Thunderbird", "/var/lib/flatpak/exports/share/icons/hicolor/128x128/apps/org.mozilla.Thunderbird.png" },
-    { "barrier", "barrier", "Barrier" },
-    { "polymc", "polymc", "PolyMC", "/usr/share/icons/WhiteSur-dark/apps/scalable/minecraft.svg" }
+    { "barrier", "barrier", "Barrier", "/usr/share/icons/hicolor/scalable/apps/barrier.svg" },
+    { "prismlauncher", "prismlauncher", "PrismLauncher", "/usr/share/icons/hicolor/scalable/apps/org.prismlauncher.PrismLauncher.svg" }
 }
 
 awful.screen.connect_for_each_screen(function(s)
