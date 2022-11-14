@@ -364,8 +364,9 @@ end
 -- class, program, name, user_icon, is_steam
 local dock_programs = {
     { "kitty", "kitty", "Kitty", "/usr/share/icons/hicolor/scalable/apps/kitty.svg" },
-    { "brave-browser", "brave", "Brave" },
-    { "crx_agimnkijcaahngcdmfeangaknmldooml", "/usr/lib/brave-bin/brave --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml", "YouTube", "/usr/share/icons/WhiteSur-dark/apps/scalable/youtube.svg" },
+    { "chromium", "chromium", "Chromium", "/usr/share/icons/hicolor/256x256/apps/chromium.png" },
+    --{ "brave-browser", "brave", "Brave" },
+    --{ "crx_agimnkijcaahngcdmfeangaknmldooml", "/usr/lib/brave-bin/brave --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml", "YouTube", "/usr/share/icons/WhiteSur-dark/apps/scalable/youtube.svg" },
     { "discord", "discord", "Discord", "/usr/share/pixmaps/discord.png" },
     { "Tauon Music Box", "flatpak run com.github.taiko2k.tauonmb", "Tauon Music Box", "/var/lib/flatpak/exports/share/icons/hicolor/scalable/apps/com.github.taiko2k.tauonmb.svg"},
     { "Spotify", "spotify", "Spotify", "/usr/share/icons/hicolor/512x512/apps/spotify.png" },

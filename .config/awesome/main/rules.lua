@@ -86,7 +86,8 @@ function _M.get(clientkeys, clientbuttons)
         -- Don't make extension windows floating
         { rule_any = {
             class = {
-                "Brave-browser"
+                "Chromium",
+                "Brave-browser",
             }
         }, properties = { floating = false }
         },
