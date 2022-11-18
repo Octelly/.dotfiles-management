@@ -343,6 +343,81 @@ local function powerline(widget, bg, fg, additional_margin)
     }
 end
 
+local function emi_powerline(widget, bg, fg, additional_margin)
+    additional_margin = additional_margin or 0
+    local lmao =  wibox.widget{
+        {
+            {
+                widget,
+                widget = wibox.container.place  -- (vertical) align
+            },
+            left  = 12 + additional_margin,
+            right = 12 + additional_margin,
+            color = bg,
+            id="xd",
+            widget = wibox.container.margin,    -- add margin that will be
+                                                -- cut into powerline shape
+        },
+        fg = fg,
+        bg = bg,
+        shape = function(cr, width, height)     -- cut
+            return gears.shape.parallelogram(cr, width, height, width-12)
+        end,
+        widget = wibox.container.background     -- NOTE:
+                                                -- widgets wrapped like this
+                                                -- need to have negative spacing
+                                                -- set up
+                                                -- setting it to precisely -12 px
+                                                -- however leaves thin lines of the
+                                                -- bg colour sticking through
+                                                -- however, something like -13 does
+                                                -- the job better
+    }
+
+    local hue = 0
+
+    local emi_min = 1
+    local emi_max = 10
+    local emi
+
+    local lmao_xd = function(the_color_we_want_to_change_the_color_to)
+        lmao.bg = the_color_we_want_to_change_the_color_to
+        lmao.xd.color = the_color_we_want_to_change_the_color_to
+    end
+
+    gears.timer{
+        timeout = 1/15,
+        autostart = true,
+        callback = function()
+            hue = hue + emi
+            if hue > 359 then hue = hue - 359 end
+            lmao_xd(color.color{
+                    h=hue,s=0.7,
+                    l=0.6
+                }.hex)
+        end
+    }
+
+    local speed_anim = rubato.timed{
+        duration = 0.2,
+        intro = 0.1,
+        pos = emi_min,
+        subscribed = function(pos)
+            emi = pos
+        end
+    }
+
+    lmao:connect_signal("mouse::enter", function()
+			speed_anim.target = emi_max
+		end)
+		
+		lmao:connect_signal("mouse::leave", function()
+			speed_anim.target = emi_min
+		end)
+
+    return lmao
+end
+
 local function static_text(text)
     return {
         text = text,
@@ -431,7 +506,8 @@ awful.screen.connect_for_each_screen(function(s)
                 layout = wibox.layout.fixed.horizontal,
                 spacing = -13,
                 powerline(static_text("ahoj Kati :)"),                 "#78dce8", "#1a181a"),
-                powerline(static_text("emi 🥺"),                       "#f85e84", "#e3e1e4"),
+                --powerline(static_text("emi 🥺"),                       "#f85e84", "#e3e1e4"),
+                emi_powerline(static_text("emi 🥺"),                       "#f85e84", "#000000"),
                 powerline(kbdcfg.widget, "#e3e1e4", "#1a181a", 3),
                 powerline({
                     base_size = 20,
