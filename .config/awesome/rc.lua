@@ -12,9 +12,6 @@ local gears = require("gears")                          -- utilities
 local awful = require("awful")                          -- window management
 require("awful.autofocus")                              --- automatic focusing on client change etc.
 local hotkeys_popup = require("awful.hotkeys_popup")    --- hotkeys cheatsheet
-require("awful.hotkeys_popup.keys")                     --- dynamic hotkeys cheatsheet library
-                                                        ---- (might not be relevant to custom config)
-                                                        ---- (firefox, qutebrowser, termite, tmux, vim)
 local wibox = require("wibox")                          -- widgets
 local beautiful = require("beautiful")                  -- themes
 local naughty = require("naughty")                      -- notifications
@@ -30,6 +27,8 @@ local json = require("external/json_lua/json")
 
 
 local machi = require("external.layout-machi")
+local rubato = require("external.rubato")
+local color = require("external.color")
 
 
 -- ADDONS {{{
@@ -333,7 +332,7 @@ local function powerline(widget, bg, fg, additional_margin)
             return gears.shape.parallelogram(cr, width, height, width-12)
         end,
         widget = wibox.container.background     -- NOTE:
-                                                -- widgets wrapped liked this
+                                                -- widgets wrapped like this
                                                 -- need to have negative spacing
                                                 -- set up
                                                 -- setting it to precisely -12 px

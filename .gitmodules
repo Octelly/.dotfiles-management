@@ -44,3 +44,12 @@
 [submodule ".local/share/awesome-emmylua"]
 	path = .local/share/awesome-emmylua
 	url = https://github.com/awchad/awesome-emmylua
+[submodule ".config/awesome_wip/modules/bling"]
+	path = .config/awesome_wip/modules/bling
+	url = git@github.com:BlingCorp/bling.git
+[submodule ".config/awesome/external/rubato"]
+	path = .config/awesome/external/rubato
+	url = git@github.com:andOrlando/rubato.git
+[submodule ".config/awesome/external/color"]
+	path = .config/awesome/external/color
+	url = git@github.com:andOrlando/color.git
