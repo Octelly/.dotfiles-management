@@ -10,5 +10,8 @@
   ],
   "workspace.library": [
     "~/.local/share/awesome-emmylua/lua"
+  ],
+  "diagnostics.disable": [
+    "lowercase-global"
   ]
 }

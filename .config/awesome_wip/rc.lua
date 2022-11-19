@@ -1,6 +1,7 @@
 -- Attempt importing luarocks packages
 pcall(require, "luarocks.loader")
 
+
 -- Notification library
 local naughty = require("naughty")
 
@@ -35,8 +36,10 @@ beautiful.init(gfs.get_configuration_dir() .. "theme/" .. theme .. "/theme.lua")
 require("configuration")
 
 
--- Screen Tags
-screen.connect_signal("request::desktop_decoration", function(s)
-    -- Each screen has its own tag table.
-    awful.tag({"1", "2", "3", "4", "5", "6", "7", "8", "9"}, s, awful.layout.layouts[1])
-end)
+-- Tag logic
+local tags = require("ux.tags")
+
+screen.connect_signal(
+    "request::desktop_decoration",
+    tags.populate_screen_with_defaults
+)
