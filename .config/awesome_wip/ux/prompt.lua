@@ -10,7 +10,7 @@ local beautiful = require("beautiful")
 
 local popup = awful.popup{
     widget = {
-        {   
+        {
             {
                 {
                     id = "textbox",
@@ -56,16 +56,28 @@ local prompt = {}
 prompt.string = function(dict)
     if dict.prompt == nil then dict.prompt = "" end
 
-    local value = ""
+    local value = dict.default or ""
 
     keygrabber = awful.keygrabber{
-        stop_key = { "Return", "Escape" },
+        stop_key = { "Return" },
 
         keypressed_callback = function(self, mod, key, event)
 
+            --local bruh = ""
+            --for x, y in pairs(mod) do
+            --    bruh = bruh .. x .. ":" .. y .. " "
+            --end
+            --awful.spawn("notify-send \""..bruh.."\"")
+
             -- parse key input
-            if #key == 1 then
-                value = value .. key
+            if
+                (mod[1] == "Control" and (key == "x")) or
+                key == "Delete" then
+                value = ""
+            elseif
+                (mod[1] == "Control" and (key == "c" or key == "d")) or
+                key == "Escape" then
+                self:stop()
             elseif key == "space" then
                 value = value .. " "
             elseif key == "BackSpace" then
@@ -74,6 +86,8 @@ prompt.string = function(dict)
                 if #value == 0 then self:stop() end
 
                 value = string.sub(value, 1, -2)
+            elseif #key == 1 then
+                value = value .. key
             end
 
             -- update popup text

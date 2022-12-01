@@ -79,25 +79,17 @@ awful.keyboard.append_global_keybindings{
     awful.key({super}, "w", function()
         tags.close(awful.screen.focused().selected_tag)
     end),
+    awful.key({super, shift}, "t", function()
+        tags.rename(awful.screen.focused().selected_tag)
+    end),
+
+    -- FIXME: this gon be painful to do seems like
+    -- awful.key({super, shift}, "Left", function()
+    --     tags.move_left(awful.screen.focused().selected_tag)
+    -- end),
+    -- awful.key({super, shift}, "Right", awful.tag.viewnext),
+
 
     awful.key({super}, "Left", awful.tag.viewprev),
     awful.key({super}, "Right", awful.tag.viewnext),
-
-
-    awful.key({}, "x", function()
-        prompt.string{
-            prompt="ඞ as the sussy sussius once said:",
-            callback=function(value)
-                awful.spawn('notify-send "' .. value .. '"')
-            end,
-        }
-    end),
-    awful.key({}, "c", function()
-        prompt.string{
-            prompt="🎄 What is in just a week?",
-            callback=function(value)
-                awful.spawn('notify-send "' .. value .. '"')
-            end,
-        }
-    end),
 }
