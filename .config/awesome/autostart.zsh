@@ -19,7 +19,8 @@ run "caffeine start"
 
 #run "light-locker --no-late-locking --no-lock-on-suspend --no-lock-on-lid --no-idle-hint"
 
-run "picom --experimental-backends --config $HOME/.config/awesome/picom/picom.conf"
+#run "picom --experimental-backends --config $HOME/.config/awesome/picom/picom.conf"
+run "picom --config $HOME/.config/awesome/picom/picom.conf"
 run "unclutter --timeout 5 --hide-on-touch"
 
 #nitrogen --set-zoom-fill ~/Wallpapers/16-9/wallhaven-rdz76w-cropped.png

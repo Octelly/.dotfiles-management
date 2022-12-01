@@ -131,7 +131,9 @@ local kbdcfg = keyboard_layout.kbdcfg({
 })
 
 kbdcfg.add_primary_layout("English (US)", "EN", "us")
+kbdcfg.add_primary_layout("English (US) (Colemak DH)", "EN 🤓", "us(colemak_dh)")
 kbdcfg.add_primary_layout("Czech (QWERTY)", "CZ", "cz(qwerty)")
+
 
 kbdcfg.bind()
 
