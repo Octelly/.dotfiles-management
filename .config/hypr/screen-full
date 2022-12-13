@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+
+tmp="$HOME/Pictures/$(date +%s).png"
+grim $tmp
+wl-copy < $tmp
