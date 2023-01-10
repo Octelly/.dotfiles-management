@@ -2,10 +2,10 @@ local essential = function(module_name)
     status, err = pcall(require, module_name)
 
     if not status then
-        print("[FATAL] Couldn't load essential module \"" .. module_name .. "\"!\nDetails:\n" .. err)
-        error("Couldn't load essential module \"" .. module_name .. "\"!\nDetails:\n" .. err, 2)
+        print('[FATAL] Couldn\'t load essential module "' .. module_name .. '"!\nDetails:\n' .. err)
+        error('Couldn\'t load essential module "' .. module_name .. '"!\nDetails:\n' .. err, 2)
     else
-        print(module_name .. " loaded successfuly")
+        print('"' .. module_name .. '" loaded successfully')
     end
 end
 
@@ -40,7 +40,7 @@ end)
 
 -- Initialize Theme
 local theme = "one"
-beautiful.init(gfs.get_configuration_dir() .. "theme/" .. theme .. "/theme.lua")
+beautiful.init(require(gfs.get_configuration_dir() .. "theme/" .. theme .. "/theme"))
 
 
 -- Import Configuration
