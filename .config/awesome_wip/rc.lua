@@ -1,6 +1,17 @@
--- Attempt importing luarocks packages
-pcall(require, "luarocks.loader")
+local essential = function(module_name)
+    status, err = pcall(require, module_name)
 
+    if not status then
+        print("[FATAL] Couldn't load essential module \"" .. module_name .. "\"!\nDetails:\n" .. err)
+        error("Couldn't load essential module \"" .. module_name .. "\"!\nDetails:\n" .. err, 2)
+    else
+        print(module_name .. " loaded successfuly")
+    end
+end
+
+-- Importing required packages
+essential("luarocks.loader")
+essential("moonscript")
 
 -- Notification library
 local naughty = require("naughty")
