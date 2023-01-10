@@ -14,7 +14,7 @@ local popup = awful.popup{
             {
                 {
                     id = "textbox",
-                    font = "Sans 15",
+                    font = beautiful.font,
                     widget = wibox.widget.textbox,
                 },
                 id = "b",
@@ -31,7 +31,7 @@ local popup = awful.popup{
             {
                 {
                     id = "textbox",
-                    font = "Sans 15",
+                    font = beautiful.font,
                     widget = wibox.widget.textbox,
                 },
                 id = "b",
