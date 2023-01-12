@@ -52,7 +52,9 @@ function _M.get(clientkeys, clientbuttons)
                 "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
                 "Wpa_gui",
                 "veromix",
-                "xtightvncviewer"},
+                "xtightvncviewer",
+                "steam_app_1794680" -- Vampire Survivors
+            },
 
             -- Note that the name property shown in xprop might be set slightly after creation of the client
             -- and the name shown there might not match defined rules here.
@@ -95,9 +97,10 @@ function _M.get(clientkeys, clientbuttons)
         -- Fix some fullscreen stuff
         { rule_any = {
             class = {
-                "steam_app_71340",  -- Sonic Generations
-                "steam_app_331750", -- WALL-E (doesn't fix the thing anw)
-                "pegasus-fe",       -- Pegasus Frontend
+                "steam_app_71340",    -- Sonic Generations
+                "steam_app_331750",   -- WALL-E (doesn't fix the thing anw)
+                "steam_app_1293830",  -- Forza Horizon 4
+                "pegasus-fe",         -- Pegasus Frontend
                 "pegasus-frontend"
             }
         },  properties = {
