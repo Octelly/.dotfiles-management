@@ -1,3 +1,8 @@
+--- An opinionated "standard library" for LUA/MoonScript
+-- Coming from Python to other languages is hard,
+-- I'm used to Python's massive, absolutely enormous
+-- standard libraries.
+
 {
     table: {
         merge: (t1, t2) ->
