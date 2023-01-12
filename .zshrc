@@ -97,7 +97,7 @@ alias cl='clear'
 alias myip='curl ipinfo.io/ip'
 
 alias mkcd='take'
-alias ff='nautilus . & disown'
+alias ff='pcmanfm . & disown'
 alias disk='df -h'
 
 alias conf='$EDITOR $HOME/.zshrc'
