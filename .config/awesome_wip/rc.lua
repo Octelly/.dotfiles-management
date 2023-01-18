@@ -13,6 +13,7 @@ end
 essential("luarocks.loader")
 essential("moonscript")
 
+
 -- Notification library
 local naughty = require("naughty")
 
