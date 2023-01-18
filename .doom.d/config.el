@@ -24,6 +24,8 @@
 ;;      doom-variable-pitch-font (font-spec :family "Noto Sans" :size 17))
 (setq doom-font (font-spec :family "Cartograph CF" :size 16 :weight 'normal)
       doom-variable-pitch-font (font-spec :family "Noto Sans" :size 17))
+
+(custom-set-faces! '(font-lock-comment-face :slant italic))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
