@@ -63,12 +63,20 @@ theme.border_width = 2
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
-theme.taglist_bg_empty    = clr_dgray
+theme.taglist_bg_empty    = "#00000000"
 theme.taglist_fg_empty    = clr_bgray
-theme.taglist_bg_occupied = clr_dgray
+theme.taglist_bg_occupied = "#00000000"
 theme.taglist_fg_occupied = clr_white
-theme.taglist_bg_focus    = clr_black
-theme.taglist_fg_focus    = clr_white
+--theme.taglist_bg_focus    = "#00000088"
+--theme.taglist_fg_focus    = clr_white
+theme.taglist_bg_focus    = clr_red
+theme.taglist_fg_focus    = clr_black
+
+theme.tasklist_bg_normal = "#00000000"
+theme.tasklist_bg_focus = "#00000000"
+theme.tasklist_fg_focus = clr_red
+theme.tasklist_bg_urgent = "#00000000"
+theme.tasklist_bg_minimize = "#00000000"
 
 -- Generate taglist squares:
 --local taglist_square_size = dpi(4)

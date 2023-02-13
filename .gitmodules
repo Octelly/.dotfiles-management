@@ -53,3 +53,6 @@
 [submodule ".config/awesome/external/color"]
 	path = .config/awesome/external/color
 	url = git@github.com:andOrlando/color.git
+[submodule ".config/awesome_wip/modules/color"]
+	path = .config/awesome_wip/modules/color
+	url = git@github.com:andOrlando/color.git

@@ -130,9 +130,9 @@ local kbdcfg = keyboard_layout.kbdcfg({
     tui_wrap_left = " "
 })
 
-kbdcfg.add_primary_layout("English (US)", "EN", "us")
+kbdcfg.add_primary_layout("English (US)", "EN 🇺🇸", "us")
 kbdcfg.add_primary_layout("English (US) (Colemak DH)", "EN 🤓", "us(colemak_dh)")
-kbdcfg.add_primary_layout("Czech (QWERTY)", "CZ", "cz(qwerty)")
+kbdcfg.add_primary_layout("Czech (QWERTY)", "CZ 🇨🇿", "cz(qwerty)")
 
 
 kbdcfg.bind()
@@ -190,7 +190,8 @@ mymainmenu = awful.menu({
 --end
 
 
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+mylauncher = awful.widget.launcher({ image = os.getenv( "HOME" ) .. "/.face",
+                                     clip_shape = gears.shape.circle,
                                      menu = mymainmenu })
 
 -- Menubar configuration
@@ -244,7 +245,8 @@ screen.connect_signal("request::wallpaper", function(s)
     --    }
     --}
     gears.wallpaper.maximized(
-        beautiful.wallpaper,
+        --beautiful.wallpaper,
+        os.getenv( "HOME" ) .. "/Wallpapers/" .. gears.filesystem.get_random_file_from_dir(os.getenv( "HOME" ) .. "/Wallpapers"),
         s
     )  -- DEPRECATED, but the only way to easily do this that I know of
        -- https://github.com/awesomeWM/awesome/issues/3547
@@ -420,12 +422,42 @@ local function emi_powerline(widget, bg, fg, additional_margin)
     return lmao
 end
 
+local function add_colour(widget, fg, additional_margin, bg)
+    additional_margin = additional_margin or 0
+    return {
+        {
+            {
+                widget,
+                widget = wibox.container.place  -- (vertical) align
+            },
+            left  = additional_margin,
+            right = additional_margin,
+            color = bg,
+            widget = wibox.container.margin,    -- add margin that will be
+                                                -- cut into powerline shape
+        },
+        fg = fg or "#00000000",
+        bg = bg,
+        widget = wibox.container.background     -- NOTE:
+                                                -- widgets wrapped like this
+                                                -- need to have negative spacing
+                                                -- set up
+                                                -- setting it to precisely -12 px
+                                                -- however leaves thin lines of the
+                                                -- bg colour sticking through
+                                                -- however, something like -13 does
+                                                -- the job better
+    }
+end
+
 local function static_text(text)
     return {
         text = text,
         widget = wibox.widget.textbox
     }
 end
+
+local text = static_text
 
 local function combine(widgets)
     local array = {
@@ -486,52 +518,85 @@ awful.screen.connect_for_each_screen(function(s)
         filter  = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons
     }
+    local battery_thing = function()
+        if gears.filesystem.is_dir("/sys/class/power_supply/BAT1/capacity") then
+            return add_colour(combine({
+                awful.widget.watch('cat /sys/class/power_supply/BAT1/capacity'),
+                text('% '),
+                awful.widget.watch('cat /sys/class/power_supply/BAT0/capacity'),
+                text('%'), -- FIXME: not a widget without this (wtf?)
+            }),                                                    "#9ecd6f", 3)
+        end
+    end
 
     -- Create the wibox
     s.mywibox = awful.wibar{
         position = "top",
         screen   = s,
+        shape    = gears.shape.rounded_bar,
         widget   = {
             layout = wibox.layout.align.horizontal,
             { -- Left widgets
                 layout = wibox.layout.fixed.horizontal,
-                {
-                    mylauncher,
-                    margins = 1.5,
-                    widget = wibox.container.margin
-                },
+                mylauncher,
+                --{
+                --    mylauncher,
+                --    margins = 1.5,
+                --    widget = wibox.container.margin
+                --},
                 s.mytaglist,
                 s.mypromptbox,
             },
             s.mytasklist, -- Middle widget
             { -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
-                spacing = -13,
-                powerline(static_text("ahoj Kati :)"),                 "#78dce8", "#1a181a"),
-                --powerline(static_text("emi 🥺"),                       "#f85e84", "#e3e1e4"),
-                emi_powerline(static_text("emi 🥺"),                       "#f85e84", "#000000"),
-                powerline(kbdcfg.widget, "#e3e1e4", "#1a181a", 3),
-                powerline({
+                spacing = 10,
+                add_colour(text("ahoj Kati :)"),                 "#78dce8"),
+                add_colour(text("emi <3"),                       "#f85e84"),
+                add_colour(kbdcfg.widget, "#e3e1e4", 3),
+                add_colour({
                     base_size = 20,
                     widget = wibox.widget.systray()
-                },                                                     "#49464e", "#e3e1e4"),
-                powerline(combine({
-                    awful.widget.watch('cat /sys/class/power_supply/BAT1/capacity'),
-                    static_text('% '),
-                    awful.widget.watch('cat /sys/class/power_supply/BAT0/capacity'),
-                    static_text('%'), -- FIXME: not a widget without this (wtf?)
-                }),                                                    "#9ecd6f", "#1a181a", 3),
-                powerline(mytextclock,                                 "#e5c463", "#1a181a"),
+                },                                                     "#49464e"),
+                battery_thing(),
+                add_colour(mytextclock,                                 "#e5c463"),
                 {
-                    powerline(s.mylayoutbox,                           "#1a181a", "#e3e1e4"),
-                    right = -12,
+                    add_colour(s.mylayoutbox,                           "#1a181a"),
+                    left = 2.5,
+                    top = 2.5,
+                    bottom = 2.5,
+                    right = -7.5,
                     widget = wibox.container.margin
                 }
             },
+            --{ -- Right widgets
+            --    layout = wibox.layout.fixed.horizontal,
+            --    spacing = -13,
+            --    powerline(static_text("ahoj Kati :)"),                 "#78dce8", "#1a181a"),
+            --    --powerline(static_text("emi 🥺"),                       "#f85e84", "#e3e1e4"),
+            --    emi_powerline(static_text("emi 🥺"),                       "#f85e84", "#000000"),
+            --    powerline(kbdcfg.widget, "#e3e1e4", "#1a181a", 3),
+            --    powerline({
+            --        base_size = 20,
+            --        widget = wibox.widget.systray()
+            --    },                                                     "#49464e", "#e3e1e4"),
+            --    powerline(combine({
+            --        awful.widget.watch('cat /sys/class/power_supply/BAT1/capacity'),
+            --        static_text('% '),
+            --        awful.widget.watch('cat /sys/class/power_supply/BAT0/capacity'),
+            --        static_text('%'), -- FIXME: not a widget without this (wtf?)
+            --    }),                                                    "#9ecd6f", "#1a181a", 3),
+            --    powerline(mytextclock,                                 "#e5c463", "#1a181a"),
+            --    {
+            --        powerline(s.mylayoutbox,                           "#1a181a", "#e3e1e4"),
+            --        right = -12,
+            --        widget = wibox.container.margin
+            --    }
+            --},
         }
     }
 
-    require("external.crylia_dock.dock_modified")(s, dock_programs)
+    --require("external.crylia_dock.dock_modified")(s, dock_programs)
 end)
 
 -- }}}
@@ -623,7 +688,9 @@ awful.keyboard.append_global_keybindings({
     --           {description = "open a file manager", group = "launcher"}),
     -- awful.key({ modkey },            "f",     function () awful.util.spawn_with_shell("dolphin --new-window") end,
     --           {description = "open a file manager", group = "launcher"}),
-    awful.key({ modkey },            "f",     function () awful.util.spawn_with_shell("pcmanfm") end,
+    --awful.key({ modkey },            "f",     function () awful.util.spawn_with_shell("pcmanfm") end,
+    --          {description = "open a file manager", group = "launcher"}),
+    awful.key({ modkey },            "f",     function () awful.util.spawn_with_shell("nemo") end,
               {description = "open a file manager", group = "launcher"}),
     awful.key({ modkey },            "r",     function () awful.util.spawn_with_shell("rofi -no-default-config -config " .. gears.filesystem.get_configuration_dir() .. "/rofi/config.rasi -switchers combi,drun,calc -show combi") end,
               {description = "Rofi", group = "launcher"}),
@@ -667,7 +734,7 @@ awful.keyboard.append_global_keybindings({
               {description = "toggle in mute", group = "HW control"}),
 
     -- awesome control
-    awful.key({ modkey, "Control" }, "r", awesome.restart,
+    awful.key({ modkey, "Control" }, "r", awful.util.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ "Mod1", "Control" },            "r",     function () awful.util.spawn_with_shell("~/.config/qtile/restart_picom.zsh") end,
               {description = "restart picom", group = "awesome"}),
