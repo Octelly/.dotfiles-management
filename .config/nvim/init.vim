@@ -121,6 +121,7 @@ Plug 'sheerun/vim-polyglot', { 'on': [] }
 Plug 'luizribeiro/vim-cooklang', { 'for': 'cook' }
 Plug 'habamax/vim-godot', { 'for': 'gd' }
 Plug 'DaeZak/crafttweaker-vim-highlighting', { 'for': 'zs' }
+Plug 'leafo/moonscript-vim', { 'for': 'moon' }
 
 " markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
