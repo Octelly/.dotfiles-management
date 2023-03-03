@@ -303,7 +303,7 @@ end
 
 local servers = {
   'pyright',
-  'sumneko_lua',
+  'lua_ls',
   'rust_analyzer',
 }
 
